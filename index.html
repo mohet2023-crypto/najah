@@ -41,6 +41,8 @@
       }
 
       body {
+        position: relative;
+        overflow-x: hidden;
         background:
           radial-gradient(circle at top, rgba(244, 181, 214, 0.18), transparent 28%),
           radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.12), transparent 25%),
@@ -135,6 +137,259 @@
         transform: translateY(0);
       }
 
+      .ambient-light {
+        position: fixed;
+        z-index: 0;
+        width: 18rem;
+        height: 18rem;
+        border-radius: 999px;
+        background: rgba(212, 175, 55, 0.08);
+        filter: blur(70px);
+        pointer-events: none;
+        animation: drift 14s ease-in-out infinite alternate;
+      }
+
+      .ambient-light-one { top: 8%; left: -8rem; }
+      .ambient-light-two { right: -9rem; bottom: 10%; animation-delay: -5s; }
+
+      .portal-card {
+        animation: portalIn 1s cubic-bezier(.2,.75,.25,1) both;
+      }
+
+      .portal-stars::before,
+      .portal-stars::after {
+        content: "✦   ·      ✧       ·   ✦";
+        position: absolute;
+        width: 100%;
+        color: rgba(247, 216, 141, 0.4);
+        font-size: 0.65rem;
+        letter-spacing: 1.7rem;
+        animation: twinkle 4s ease-in-out infinite;
+      }
+
+      .portal-stars::before { top: 12%; left: 5%; }
+      .portal-stars::after { bottom: 14%; right: 4%; animation-delay: -2s; }
+
+      .unlocking .portal-card {
+        animation: portalOut 1.4s ease forwards;
+      }
+
+      .access-granted {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        background: #080506;
+        color: #f7d88d;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .unlocking .access-granted {
+        animation: granted 2.7s ease forwards;
+      }
+
+      .access-granted span {
+        display: block;
+        font-size: clamp(1rem, 4vw, 1.5rem);
+        letter-spacing: 0.3em;
+        text-shadow: 0 0 28px rgba(212, 175, 55, 0.85);
+      }
+
+      .hero-scene {
+        position: relative;
+        min-height: min(42rem, 80vh);
+        display: grid;
+        align-items: end;
+        overflow: hidden;
+        background: #10090d;
+      }
+
+      .hero-scene::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 22%, rgba(10, 5, 7, 0.2) 45%, rgba(10, 5, 7, 0.96) 100%);
+      }
+
+      .hero-scene img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        filter: saturate(0.72) contrast(1.05) brightness(0.62);
+        animation: heroReveal 1.6s ease both;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 1;
+        max-width: 42rem;
+        padding: 3rem 1.5rem;
+        animation: copyRise 1s 0.35s ease both;
+      }
+
+      .story-chapter,
+      .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .story-chapter.is-visible,
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .chapter-image {
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.38), 0 0 30px rgba(212, 175, 55, 0.1);
+        transition: transform 0.8s ease;
+      }
+
+      .story-chapter:hover .chapter-image { transform: scale(1.015); }
+
+      .envelope {
+        position: relative;
+        min-height: 11rem;
+        cursor: pointer;
+        perspective: 900px;
+      }
+
+      .envelope-body {
+        position: absolute;
+        inset: 2.5rem 0 0;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        background: linear-gradient(145deg, #321a22, #160c10);
+        box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+      }
+
+      .envelope-flap {
+        position: absolute;
+        top: 2.5rem;
+        left: 0;
+        width: 100%;
+        height: 6rem;
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        background: #4a232f;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        transform-origin: top;
+        transition: transform 0.8s ease;
+        z-index: 2;
+      }
+
+      .envelope.open .envelope-flap { transform: rotateX(180deg); }
+
+      .letter-copy {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.9s ease, opacity 0.7s ease, margin 0.7s ease;
+      }
+
+      .letter-copy.open {
+        max-height: 30rem;
+        margin-top: 1.5rem;
+        opacity: 1;
+      }
+
+      .night-sky {
+        position: relative;
+        min-height: 25rem;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 15%, #39202d 0, #160c13 35%, #080507 82%);
+      }
+
+      .moon {
+        position: absolute;
+        top: 2rem;
+        right: 12%;
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: #f7d88d;
+        box-shadow: 0 0 35px rgba(247, 216, 141, 0.55);
+        cursor: pointer;
+      }
+
+      .star-button {
+        position: absolute;
+        width: 0.8rem;
+        height: 0.8rem;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #fff4c9;
+        box-shadow: 0 0 14px 4px rgba(247, 216, 141, 0.75);
+        animation: twinkle 3s ease-in-out infinite;
+      }
+
+      .star-button span {
+        position: absolute;
+        left: 50%;
+        bottom: 1.4rem;
+        width: max-content;
+        max-width: 11rem;
+        padding: 0.5rem 0.7rem;
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        background: rgba(17, 8, 12, 0.92);
+        color: #f5efe6;
+        font-size: 0.75rem;
+        opacity: 0;
+        transform: translateX(-50%) translateY(5px);
+        pointer-events: none;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .star-button.active span { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+      .finale {
+        position: relative;
+        overflow: hidden;
+        background: #080507;
+      }
+
+      .finale-heart {
+        color: #d98ea5;
+        font-size: 4rem;
+        text-shadow: 0 0 35px rgba(217, 142, 165, 0.8);
+        animation: heartbeat 2s ease-in-out infinite;
+      }
+
+      .finale-message { opacity: 0; transition: opacity 1.2s ease; }
+      .finale.ready .finale-message { opacity: 1; }
+
+      .equalizer-bar {
+        display: block;
+        width: 0.22rem;
+        border-radius: 999px;
+        background: #d4af37;
+        opacity: 0.55;
+        animation: equalize 1.1s ease-in-out infinite alternate;
+      }
+
+      .equalizer-bar:nth-child(2) { animation-delay: -0.35s; }
+      .equalizer-bar:nth-child(3) { animation-delay: -0.7s; }
+      .equalizer-bar:nth-child(4) { animation-delay: -0.15s; }
+      .equalizer-bar:nth-child(5) { animation-delay: -0.55s; }
+      .equalizer-bar:nth-child(6) { animation-delay: -0.85s; }
+
+      @keyframes drift { to { transform: translate(8rem, -4rem) scale(1.15); } }
+      @keyframes twinkle { 50% { opacity: 0.35; transform: scale(0.78); } }
+      @keyframes portalIn { from { opacity: 0; transform: translateY(18px) scale(0.98); } to { opacity: 1; transform: none; } }
+      @keyframes portalOut { to { opacity: 0; transform: scale(0.94) translateY(-20px); } }
+      @keyframes granted { 0%, 18% { opacity: 0; } 35%, 72% { opacity: 1; } 100% { opacity: 0; } }
+      @keyframes heroReveal { from { opacity: 0; transform: scale(1.06); } to { opacity: 1; transform: scale(1); } }
+      @keyframes copyRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+      @keyframes heartbeat { 50% { transform: scale(1.08); } }
+      @keyframes equalize { to { transform: scaleY(0.45); opacity: 0.3; } }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+      }
+
       .login-card.fadeout {
         opacity: 0;
         transform: scale(0.98) translateY(-12px);
@@ -210,13 +465,15 @@
     </style>
   </head>
   <body class="min-h-screen text-cream antialiased">
+    <div class="ambient-light ambient-light-one"></div>
+    <div class="ambient-light ambient-light-two"></div>
     <div class="relative min-h-screen overflow-hidden">
       <div class="absolute inset-0 opacity-20">
         <div class="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-[#d4af37]/10 to-transparent"></div>
       </div>
 
       <div id="loginScreen" class="relative z-10 flex min-h-screen items-center justify-center px-4 py-10">
-        <div class="login-card glass w-full max-w-lg rounded-3xl p-6 shadow-glow sm:p-8">
+        <div class="portal-stars login-card portal-card glass relative w-full max-w-lg rounded-3xl p-6 shadow-glow sm:p-8">
           <div class="mb-6 text-center">
             <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#d4af37]/50 bg-[#d4af37]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#f7d88d]">
               <span>✦</span>
@@ -246,6 +503,7 @@
           </button>
         </div>
       </div>
+      <div class="access-granted" aria-live="polite"><span>ACCESS GRANTED</span></div>
 
       <main id="app" class="hidden-app relative z-10 mx-auto max-w-6xl px-4 pb-16 pt-6 sm:px-6 sm:pt-10 lg:px-8">
         <header class="mb-8 flex flex-col items-start justify-between gap-3 rounded-[1.5rem] border border-[#d4af37]/20 bg-[#18181b]/80 px-4 py-4 shadow-glow sm:mb-10 sm:flex-row sm:items-center sm:rounded-full sm:px-6 sm:py-3 romantic-sheen">
@@ -257,6 +515,31 @@
             Birthday Love ✨
           </div>
         </header>
+
+        <section class="hero-scene mb-12 rounded-[2rem] border border-[#d4af37]/25 shadow-glow">
+          <img src="memory5.jpeg" alt="A favorite memory of Najah" />
+          <div class="hero-copy">
+            <p class="text-xs uppercase tracking-[0.3em] text-[#f7d88d]">For the girl who became</p>
+            <h1 class="mt-4 font-serif text-5xl leading-[0.9] text-[#f5efe6] sm:text-7xl">A beautiful part of my story.</h1>
+            <p class="mt-6 font-serif text-3xl text-[#f7d88d]">Happy Birthday, Najah ❤️</p>
+            <button id="beginStoryBtn" type="button" class="mt-8 rounded-full border border-[#d4af37]/60 bg-[#d4af37]/10 px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#f7d88d] transition hover:bg-[#d4af37]/20">Begin our story →</button>
+          </div>
+        </section>
+
+        <section class="mb-12">
+          <div class="glass rounded-[2rem] p-6 sm:p-8">
+            <p class="text-[10px] uppercase tracking-[0.28em] text-[#d4af37]">A letter for you</p>
+            <h2 class="mt-2 font-serif text-4xl text-[#f5efe6]">Something I wanted you to read.</h2>
+            <div id="envelope" class="envelope mt-5" role="button" tabindex="0" aria-label="Open the letter">
+              <div class="envelope-body rounded-2xl"></div>
+              <div class="envelope-flap rounded-t-2xl"></div>
+              <div class="absolute inset-x-0 top-20 z-10 text-center text-xs uppercase tracking-[0.2em] text-[#f7d88d]">Tap to open</div>
+            </div>
+            <div id="letterCopy" class="letter-copy font-serif text-xl leading-8 text-[#f5efe6]/90">
+              <p>Noloshydii Najah, boqoraddii aduunkeyga. Waxa laga joogaaa sanad intan ku aqaan aadna ku dhex nooshahay qalbigayga. Mudadaas maalin qudha kama aadan maqnaan qalbigayga, sidoo kale riyo kasta iyo dhacdo kasta iyo qorshe kasta aan sameynayo qayb weyn ayaad ka ahayd muddadaas aan ku aqaanay.</p>
+            </div>
+          </div>
+        </section>
 
         <section class="mb-12 rounded-[2rem] border border-[#d4af37]/20 bg-[#18181b]/70 p-5 shadow-[0_25px_60px_rgba(0,0,0,0.25)] sm:p-8">
           <div class="mb-6 flex items-center justify-between">
@@ -279,7 +562,7 @@
               <div class="p-3 sm:p-5">
                 <p class="text-[9px] uppercase tracking-[0.16em] text-[#d4af37] sm:text-[10px] sm:tracking-[0.24em]">Origin</p>
                 <h4 class="mt-1 font-serif text-2xl text-[#f5efe6] sm:mt-2 sm:text-4xl">Boosaaso</h4>
-                <p class="mt-1 text-xs leading-5 text-[#f5efe6]/70 sm:mt-2 sm:text-sm">Warm light, restless energy, and a heart that knows what it wants.</p>
+                <p class="mt-1 text-xs leading-5 text-[#f5efe6]/70 sm:mt-2 sm:text-sm">Royal family👑.</p>
               </div>
             </article>
 
@@ -292,7 +575,7 @@
               <div class="p-3 sm:p-5">
                 <p class="text-[9px] uppercase tracking-[0.16em] text-[#d4af37] sm:text-[10px] sm:tracking-[0.24em]">Origin</p>
                 <h4 class="mt-1 font-serif text-2xl text-[#f5efe6] sm:mt-2 sm:text-4xl">Laascanood</h4>
-                <p class="mt-1 text-xs leading-5 text-[#f5efe6]/70 sm:mt-2 sm:text-sm">Quiet strength, deep roots, and a beautiful kind of staying power.</p>
+                <p class="mt-1 text-xs leading-5 text-[#f5efe6]/70 sm:mt-2 sm:text-sm">Bankii jaceylka😂.</p>
               </div>
             </article>
           </div>
@@ -332,36 +615,84 @@
           </div>
         </section>
 
-        <section class="mb-10 rounded-[2rem] border border-[#d4af37]/20 bg-[#18181b]/75 p-5 sm:p-8">
+        <section id="story" class="mb-12 rounded-[2rem] border border-[#d4af37]/20 bg-[#18181b]/75 p-5 sm:p-8">
           <div class="mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <div>
-              <p class="text-[10px] uppercase tracking-[0.22em] text-[#d4af37]">Moments</p>
-              <h3 class="mt-2 font-serif text-3xl leading-tight text-[#f5efe6] sm:text-4xl">Our favorite frames</h3>
+              <p class="text-[10px] uppercase tracking-[0.22em] text-[#d4af37]">Our story</p>
+              <h3 class="mt-2 font-serif text-3xl leading-tight text-[#f5efe6] sm:text-4xl">A few frames from the story</h3>
             </div>
             <div class="rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#f7d88d]">
-              Birthday memories
+              Chapter by chapter
             </div>
           </div>
 
-          <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory1.jpeg" alt="Memory 1" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory2.jpeg" alt="Memory 2" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory3.jpeg" alt="Memory 3" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory4.jpeg" alt="Memory 4" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory5.jpeg" alt="Memory 5" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
-            <div class="overflow-hidden rounded-[1.4rem] border border-[#d4af37]/20 bg-[#120c0d]/70 p-3">
-              <img src="memory6.jpeg" alt="Memory 6" class="h-52 w-full rounded-[1rem] object-cover sm:h-60" />
-            </div>
+          <div class="space-y-12">
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 01</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">The girl I didn't know would become so important.</h4>
+              </div>
+              <img src="memory1.jpeg" alt="Chapter one memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96" />
+            </article>
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[1.2fr_0.8fr]">
+              <img src="memory3.jpeg" alt="Chapter two memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96 md:order-first" />
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 02</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">Somewhere along the way...</h4>
+              </div>
+            </article>
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 03</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">And somehow, here we are.</h4>
+              </div>
+              <img src="memory6.jpeg" alt="Chapter three memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96" />
+            </article>
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[1.2fr_0.8fr]">
+              <img src="memory2.jpeg" alt="Chapter four memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96 md:order-first" />
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 04</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">Another frame I want to keep.</h4>
+              </div>
+            </article>
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 05</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">A memory that still feels close.</h4>
+              </div>
+              <img src="memory4.jpeg" alt="Chapter five memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96" />
+            </article>
+            <article class="story-chapter grid items-center gap-6 md:grid-cols-[1.2fr_0.8fr]">
+              <img src="memory5.jpeg" alt="Chapter six memory" class="chapter-image h-72 w-full rounded-[1.5rem] object-cover sm:h-96 md:order-first" />
+              <div>
+                <p class="text-[10px] uppercase tracking-[0.25em] text-[#d4af37]">Chapter 06</p>
+                <h4 class="mt-3 font-serif text-3xl text-[#f5efe6]">And one more moment worth keeping.</h4>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="night-sky mb-12 rounded-[2rem] border border-[#d4af37]/20 p-6 sm:p-10">
+          <div class="relative z-10 max-w-lg">
+            <p class="text-[10px] uppercase tracking-[0.28em] text-[#d4af37]">A little constellation</p>
+            <h3 class="mt-3 font-serif text-4xl leading-tight text-[#f5efe6]">If I could give you the stars, I'd start here.</h3>
+            <p class="mt-3 text-sm text-[#f5efe6]/60">Tap a light. Some things are easier to say softly.</p>
+          </div>
+          <button class="moon" id="moon" type="button" aria-label="A hidden moon message"></button>
+          <button class="star-button" style="top: 39%; left: 16%;" type="button"><span>Your smile.</span></button>
+          <button class="star-button" style="top: 62%; left: 34%; animation-delay: -1s;" type="button"><span>Your kindness.</span></button>
+          <button class="star-button" style="top: 35%; left: 56%; animation-delay: -2s;" type="button"><span>The way you make me laugh.</span></button>
+          <button class="star-button" style="top: 72%; left: 78%; animation-delay: -0.5s;" type="button"><span>Your eyes.</span></button>
+          <p id="easterEgg" class="mt-48 text-center font-serif text-xl text-[#f7d88d] opacity-0 transition-opacity duration-700"></p>
+        </section>
+
+        <section class="finale mb-12 rounded-[2rem] border border-[#d4af37]/20 px-5 py-20 text-center sm:px-10">
+          <p class="text-xs uppercase tracking-[0.35em] text-[#d4af37]">Wait...</p>
+          <p class="mt-4 font-serif text-3xl text-[#f5efe6]">There's one more thing.</p>
+          <div class="mt-8 finale-heart">♥</div>
+          <div class="finale-message mt-6">
+            <h3 class="font-serif text-5xl text-[#f5efe6]">Happy Birthday, Najah ❤️</h3>
+            <p class="mx-auto mt-5 max-w-xl font-serif text-2xl leading-9 text-[#f7d88d]">Waxaan ku jecladay si aan xad lahayn. Waxaad ii noqotay qofka kaliya aan ugu baahiyaha badanahay adduunka. Waxaan ku daneeyaa si aan weli qofna loo daneen. Waxaad ii tahay jawharada nolosheyda iyo iftiinka qalbigayga 🫶🏻👸</p>
           </div>
         </section>
 
@@ -372,12 +703,12 @@
               <h3 class="mt-2 font-serif text-3xl leading-tight text-[#f5efe6] sm:text-4xl">Ila wadaag dareenkaaga</h3>
             </div>
             <div class="rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#f7d88d]">
-              Your voice, your words
+              Afka furo, your words
             </div>
           </div>
 
           <div class="space-y-4">
-            <label for="specialMessage" class="block text-sm leading-7 text-[#f5efe6]/80">Ila wadaag wax kasta oo aad dareemeysid. Waxaan is naqaan san iyo xoogaa, waadna ogtahay sida aan kuu dareemayo, laakiin anigu ma garanayo dareenkaaga. Wax kasta ii sheeg, mid wanaagsan ama mid aan wanaagsanayn, spill the tea 😁</label>
+            <label for="specialMessage" class="block text-sm leading-7 text-[#f5efe6]/80">Ila wadaag wax kasta oo aad dareemeysid. Waxaan is naqaan sanad iyo xoogaa, waadna ogtahay how i feel about you, laakiin anigu ma garanayo dareenkaaga. waxa aad daremysid , spill the tea 😁</label>
             <textarea
               id="specialMessage"
               rows="5"
@@ -385,7 +716,7 @@
               class="min-h-32 w-full resize-y rounded-2xl border border-[#d4af37]/25 bg-[#120c0d]/80 px-4 py-3 text-base leading-7 text-[#f5efe6] placeholder:text-[#f5efe6]/35 focus:border-[#d4af37] focus:outline-none focus:ring-2 focus:ring-[#d4af37]/25"
             ></textarea>
             <div class="rounded-2xl border border-dashed border-[#d4af37]/30 bg-[#120c0d]/50 p-4 text-sm text-[#f5efe6]/70">
-              Ha xishoon, Najah. Si daacad ah ii sheeg waxa aad dareemeysid, xitaa haddii ay tahay wax yar.
+              Ha xishoon, Najah. Si daacad ah ii sheeg waxa aad dareemeysid, whether its positve or negetive.
             </div>
           </div>
 
@@ -406,18 +737,15 @@
       const unlockBtn = document.getElementById('unlockBtn');
       const loginScreen = document.getElementById('loginScreen');
       const app = document.getElementById('app');
+      const body = document.body;
+      const envelope = document.getElementById('envelope');
+      const letterCopy = document.getElementById('letterCopy');
+      const beginStoryBtn = document.getElementById('beginStoryBtn');
+      const moon = document.getElementById('moon');
+      const easterEgg = document.getElementById('easterEgg');
       const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
       const sendTikTokBtn = document.getElementById('sendTikTokBtn');
       const specialMessage = document.getElementById('specialMessage');
-
-      function setSelectionState(groupName, selectedButton) {
-        const buttons = document.querySelectorAll('[data-group="' + groupName + '"]');
-        buttons.forEach((button) => {
-          const isSelected = button === selectedButton;
-          button.classList.toggle('selected', isSelected);
-          button.setAttribute('aria-pressed', String(isSelected));
-        });
-      }
 
       function showError() {
         errorText.classList.add('show');
@@ -435,12 +763,16 @@
 
         if (validMonths.includes(entered)) {
           clearError();
-          loginScreen.classList.add('fadeout');
+          unlockBtn.disabled = true;
+          unlockBtn.textContent = 'Verifying...';
+          body.classList.add('unlocking');
           setTimeout(() => {
             loginScreen.style.display = 'none';
             app.classList.remove('hidden-app');
             app.classList.add('visible-app');
-          }, 350);
+            body.classList.remove('unlocking');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+          }, 2500);
         } else {
           showError();
         }
@@ -451,6 +783,46 @@
           unlockBtn.click();
         }
       });
+
+      beginStoryBtn.addEventListener('click', () => {
+        document.getElementById('story').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      function openLetter() {
+        envelope.classList.toggle('open');
+        letterCopy.classList.toggle('open');
+      }
+
+      envelope.addEventListener('click', openLetter);
+      envelope.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLetter();
+        }
+      });
+
+      document.querySelectorAll('.star-button').forEach((star) => {
+        star.addEventListener('click', () => star.classList.toggle('active'));
+      });
+
+      let moonTaps = 0;
+      moon.addEventListener('click', () => {
+        moonTaps += 1;
+        if (moonTaps >= 5) {
+          easterEgg.textContent = "You found something I didn't tell you... I love you more than this website can possibly explain. ❤️";
+          easterEgg.classList.remove('opacity-0');
+        }
+      });
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.16 });
+
+      document.querySelectorAll('.story-chapter, .reveal-on-scroll').forEach((element) => revealObserver.observe(element));
+
+      setTimeout(() => document.querySelector('.finale').classList.add('ready'), 1800);
 
       sendWhatsAppBtn.addEventListener('click', () => {
         const message = specialMessage.value.trim();
