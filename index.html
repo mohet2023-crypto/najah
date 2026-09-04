@@ -389,9 +389,12 @@
             </div>
           </div>
 
-          <div class="mt-6">
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
             <button id="sendWhatsAppBtn" type="button" class="w-full rounded-2xl border border-[#25D366] bg-[#25D366]/10 px-4 py-3 font-semibold text-[#25D366] transition hover:bg-[#25D366]/20">
               📱 Send to WhatsApp
+            </button>
+            <button id="sendTikTokBtn" type="button" class="w-full rounded-2xl border border-[#ff4f81] bg-[#ff4f81]/10 px-4 py-3 font-semibold text-[#ff8eab] transition hover:bg-[#ff4f81]/20">
+              🎵 Send on TikTok
             </button>
           </div>
         </section>
@@ -404,6 +407,7 @@
       const loginScreen = document.getElementById('loginScreen');
       const app = document.getElementById('app');
       const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
+      const sendTikTokBtn = document.getElementById('sendTikTokBtn');
       const specialMessage = document.getElementById('specialMessage');
 
       function setSelectionState(groupName, selectedButton) {
@@ -458,6 +462,23 @@
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
+      });
+
+      sendTikTokBtn.addEventListener('click', async () => {
+        const message = specialMessage.value.trim();
+        if (!message) {
+          alert('Please write a sweet message first 💌');
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(message);
+          alert('Your note was copied. TikTok will open so you can paste it into Abdullah\'s message.');
+        } catch (error) {
+          alert('TikTok will open. Copy your note before sending it.');
+        }
+
+        window.open('https://www.tiktok.com/@alphaa863', '_blank');
       });
 
       window.addEventListener('load', () => {
