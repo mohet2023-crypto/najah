@@ -361,6 +361,89 @@
       .finale-message { opacity: 0; transition: opacity 1.2s ease; }
       .finale.ready .finale-message { opacity: 1; }
 
+      .jane-eyre-section {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(57, 31, 35, 0.94), rgba(22, 12, 15, 0.98));
+        box-shadow: inset 0 0 60px rgba(212, 175, 55, 0.06), 0 25px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      .jane-eyre-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.16;
+        background-image: radial-gradient(rgba(247, 216, 141, 0.35) 0.5px, transparent 0.5px);
+        background-size: 7px 7px;
+      }
+
+      .novel-page {
+        position: relative;
+        min-height: 23rem;
+        padding: 2rem 1.25rem;
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        background: linear-gradient(145deg, #ead9bb, #cbb58f);
+        color: #2b1719;
+        box-shadow: 12px 16px 0 rgba(55, 27, 31, 0.35), 0 20px 45px rgba(0, 0, 0, 0.35);
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(.2,.75,.25,1), opacity 0.5s ease;
+      }
+
+      .novel-page::before {
+        content: "";
+        position: absolute;
+        inset: 0.7rem;
+        border: 1px solid rgba(89, 46, 35, 0.24);
+        pointer-events: none;
+      }
+
+      .novel-page.turning {
+        transform: perspective(900px) rotateY(-88deg) translateX(-12%);
+        opacity: 0;
+      }
+
+      .novel-page.page-two {
+        position: absolute;
+        inset: 0;
+        transform: perspective(900px) rotateY(88deg) translateX(12%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .novel-page.page-two.show {
+        transform: perspective(900px) rotateY(0) translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .novel-copy {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        min-height: 18rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .novel-copy em { color: #6e2936; }
+      .novel-copy strong { color: #8d3e4d; text-shadow: 0 1px 0 rgba(255,255,255,0.4); }
+
+      .novel-page-number {
+        position: absolute;
+        right: 1.4rem;
+        bottom: 1rem;
+        color: rgba(43, 23, 25, 0.55);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+      }
+
+      @media (min-width: 641px) {
+        .novel-page { padding: 3rem; }
+      }
+
       .equalizer-bar {
         display: block;
         width: 0.22rem;
@@ -686,6 +769,39 @@
           <p id="easterEgg" class="mt-48 text-center font-serif text-xl text-[#f7d88d] opacity-0 transition-opacity duration-700"></p>
         </section>
 
+        <section class="jane-eyre-section mb-12 rounded-[2rem] border border-[#d4af37]/25 p-5 sm:p-10">
+          <div class="relative z-10 mb-6 text-center">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-[#f7d88d]">A page from her favorite book</p>
+            <h3 class="mt-3 font-serif text-4xl text-[#f5efe6]">A little Jane Eyre moment</h3>
+          </div>
+
+          <div class="novel-page" id="janePage">
+            <div class="novel-copy">
+              <p class="text-sm uppercase tracking-[0.18em]">Reader, I married him.</p>
+              <p class="mt-3 font-serif text-xl italic">— Jane Eyre</p>
+              <div id="janeReveal" class="mt-8 opacity-0 transition-opacity duration-700">
+                <p class="font-serif text-4xl leading-tight">Reader, I found <strong>Abdullah.</strong></p>
+                <p id="herStoryLine" class="mt-3 font-serif text-xl italic opacity-0 transition-opacity duration-700">— her story 🤍</p>
+              </div>
+            </div>
+            <span class="novel-page-number">01</span>
+          </div>
+
+          <div class="novel-page page-two" id="janePageTwo">
+            <div class="novel-copy px-4">
+              <p class="font-serif text-3xl leading-tight">Before Abdullah?<br /><em>Nolol bilaa iftiin ah😁.</em></p>
+              <p class="mt-7 font-serif text-3xl leading-tight">Abdullah?<br /><strong>The story.</strong></p>
+              <p class="mt-7 font-serif text-2xl leading-tight">After Abdullah?<br /><em>There is no after. 😂</em></p>
+            </div>
+            <span class="novel-page-number">02</span>
+          </div>
+
+          <div class="relative z-10 mt-6 text-center">
+            <button id="turnJanePageBtn" type="button" class="rounded-full border border-[#d4af37]/60 bg-[#d4af37]/10 px-5 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#f7d88d] transition hover:bg-[#d4af37]/20">Turn the page →</button>
+            <p class="mt-5 font-serif text-lg italic text-[#f5efe6]/75">Maybe some stories were never meant to have an after.</p>
+          </div>
+        </section>
+
         <section class="finale mb-12 rounded-[2rem] border border-[#d4af37]/20 px-5 py-20 text-center sm:px-10">
           <p class="text-xs uppercase tracking-[0.35em] text-[#d4af37]">Wait...</p>
           <p class="mt-4 font-serif text-3xl text-[#f5efe6]">There's one more thing.</p>
@@ -743,6 +859,11 @@
       const beginStoryBtn = document.getElementById('beginStoryBtn');
       const moon = document.getElementById('moon');
       const easterEgg = document.getElementById('easterEgg');
+      const janePage = document.getElementById('janePage');
+      const janeReveal = document.getElementById('janeReveal');
+      const herStoryLine = document.getElementById('herStoryLine');
+      const janePageTwo = document.getElementById('janePageTwo');
+      const turnJanePageBtn = document.getElementById('turnJanePageBtn');
       const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
       const sendTikTokBtn = document.getElementById('sendTikTokBtn');
       const specialMessage = document.getElementById('specialMessage');
@@ -823,6 +944,29 @@
       document.querySelectorAll('.story-chapter, .reveal-on-scroll').forEach((element) => revealObserver.observe(element));
 
       setTimeout(() => document.querySelector('.finale').classList.add('ready'), 1800);
+
+      setTimeout(() => {
+        janeReveal.classList.remove('opacity-0');
+        setTimeout(() => herStoryLine.classList.remove('opacity-0'), 850);
+      }, 900);
+
+      let janePageIsTurned = false;
+      turnJanePageBtn.addEventListener('click', () => {
+        janePageIsTurned = !janePageIsTurned;
+        turnJanePageBtn.disabled = true;
+
+        if (janePageIsTurned) {
+          janePage.classList.add('turning');
+          setTimeout(() => janePageTwo.classList.add('show'), 360);
+          turnJanePageBtn.textContent = 'Turn back ←';
+        } else {
+          janePageTwo.classList.remove('show');
+          setTimeout(() => janePage.classList.remove('turning'), 360);
+          turnJanePageBtn.textContent = 'Turn the page →';
+        }
+
+        setTimeout(() => turnJanePageBtn.disabled = false, 850);
+      });
 
       sendWhatsAppBtn.addEventListener('click', () => {
         const message = specialMessage.value.trim();
