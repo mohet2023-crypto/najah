@@ -390,6 +390,11 @@
         transition: transform 0.8s cubic-bezier(.2,.75,.25,1), opacity 0.5s ease;
       }
 
+      .novel-pages {
+        position: relative;
+        min-height: 23rem;
+      }
+
       .novel-page::before {
         content: "";
         position: absolute;
@@ -775,25 +780,27 @@
             <h3 class="mt-3 font-serif text-4xl text-[#f5efe6]">A little Jane Eyre moment</h3>
           </div>
 
-          <div class="novel-page" id="janePage">
-            <div class="novel-copy">
-              <p class="text-sm uppercase tracking-[0.18em]">Reader, I married him.</p>
-              <p class="mt-3 font-serif text-xl italic">— Jane Eyre</p>
-              <div id="janeReveal" class="mt-8 opacity-0 transition-opacity duration-700">
-                <p class="font-serif text-4xl leading-tight">Reader, I found <strong>Abdullah.</strong></p>
-                <p id="herStoryLine" class="mt-3 font-serif text-xl italic opacity-0 transition-opacity duration-700">— her story 🤍</p>
+          <div class="novel-pages">
+            <div class="novel-page" id="janePage">
+              <div class="novel-copy">
+                <p class="text-sm uppercase tracking-[0.18em]">Reader, I married him.</p>
+                <p class="mt-3 font-serif text-xl italic">— Jane Eyre</p>
+                <div id="janeReveal" class="mt-8 opacity-0 transition-opacity duration-700">
+                  <p class="font-serif text-4xl leading-tight">Reader, I found <strong>Abdullah.</strong></p>
+                  <p id="herStoryLine" class="mt-3 font-serif text-xl italic opacity-0 transition-opacity duration-700">— her story 🤍</p>
+                </div>
               </div>
+              <span class="novel-page-number">01</span>
             </div>
-            <span class="novel-page-number">01</span>
-          </div>
 
-          <div class="novel-page page-two" id="janePageTwo">
-            <div class="novel-copy px-4">
-              <p class="font-serif text-3xl leading-tight">Before Abdullah?<br /><em>Nolol bilaa iftiin ah😁.</em></p>
-              <p class="mt-7 font-serif text-3xl leading-tight">Abdullah?<br /><strong>The story.</strong></p>
-              <p class="mt-7 font-serif text-2xl leading-tight">After Abdullah?<br /><em>There is no after. 😂</em></p>
+            <div class="novel-page page-two" id="janePageTwo">
+              <div class="novel-copy px-4">
+                <p class="font-serif text-3xl leading-tight">Before Abdullah?<br /><em>Nolol bilaa iftiin ah😁.</em></p>
+                <p class="mt-7 font-serif text-3xl leading-tight">Abdullah?<br /><strong>The story.</strong></p>
+                <p class="mt-7 font-serif text-2xl leading-tight">After Abdullah?<br /><em>There is no after. 😂</em></p>
+              </div>
+              <span class="novel-page-number">02</span>
             </div>
-            <span class="novel-page-number">02</span>
           </div>
 
           <div class="relative z-10 mt-6 text-center">
