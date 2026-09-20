@@ -162,7 +162,7 @@
       }
 
       .email-contact::before {
-        content: "✦";
+        content: "✉";
         flex: 0 0 auto;
         color: rgba(247, 216, 141, 0.78);
         font-family: Georgia, serif;
@@ -180,6 +180,47 @@
       .email-contact__text {
         min-width: 0;
         overflow-wrap: anywhere;
+      }
+
+      .message-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .message-send {
+        border: 1px solid rgba(212, 175, 55, 0.6);
+        border-radius: 999px;
+        background: rgba(212, 175, 55, 0.1);
+        padding: 0.75rem 1.35rem;
+        color: #f7d88d;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+      }
+
+      .message-send:hover,
+      .message-send:focus-visible,
+      .message-send:active {
+        background: rgba(212, 175, 55, 0.2);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 520px) {
+        .message-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .message-send,
+        .email-contact {
+          width: 100%;
+        }
       }
 
       .quote-block {
@@ -936,7 +977,8 @@
             </div>
           </div>
 
-          <div class="mt-6 text-center">
+          <div class="message-actions mt-6">
+            <button id="sendMessageBtn" type="button" class="message-send">Send</button>
             <a
               href="mailto:abdullahimohamed361@gmail.com"
               class="email-contact"
@@ -966,6 +1008,8 @@
       const herStoryLine = document.getElementById('herStoryLine');
       const janePageTwo = document.getElementById('janePageTwo');
       const turnJanePageBtn = document.getElementById('turnJanePageBtn');
+      const sendMessageBtn = document.getElementById('sendMessageBtn');
+      const specialMessage = document.getElementById('specialMessage');
 
       function showError() {
         errorText.classList.add('show');
@@ -1065,6 +1109,19 @@
         }
 
         setTimeout(() => turnJanePageBtn.disabled = false, 850);
+      });
+
+      sendMessageBtn.addEventListener('click', () => {
+        const message = specialMessage.value.trim();
+        if (!message) {
+          alert('Please write a sweet message first 💌');
+          specialMessage.focus();
+          return;
+        }
+
+        const subject = encodeURIComponent('A message for Abdullah');
+        const body = encodeURIComponent(message);
+        window.location.href = `mailto:abdullahimohamed361@gmail.com?subject=${subject}&body=${body}`;
       });
 
       window.addEventListener('load', () => {
