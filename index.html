@@ -146,6 +146,47 @@
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.26);
       }
 
+      .finale-email-link {
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        border-radius: 1rem;
+        border: 1px solid rgba(212, 175, 55, 0.42);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.08));
+        padding: 0.9rem 1.1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        color: rgba(247, 216, 141, 0.96);
+        text-decoration: none;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.18);
+        box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+        transition: border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, color 0.35s ease, transform 0.35s ease;
+      }
+
+      .finale-email-link:hover,
+      .finale-email-link:focus-visible {
+        border-color: rgba(212, 175, 55, 0.6);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0.12));
+        color: rgba(250, 223, 157, 0.98);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .finale-email-link__icon {
+        font-size: 0.95rem;
+        opacity: 0.9;
+      }
+
+      @media (min-width: 640px) {
+        .finale-email-link {
+          font-size: 1.08rem;
+          padding: 0.95rem 1.2rem;
+        }
+      }
+
       .quote-block {
         border: 1px solid rgba(212, 175, 55, 0.75);
         box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.15), 0 20px 28px rgba(0, 0, 0, 0.2);
@@ -900,13 +941,15 @@
             </div>
           </div>
 
-          <div class="mt-6 grid gap-3 sm:grid-cols-2">
-            <button id="sendWhatsAppBtn" type="button" class="w-full rounded-2xl border border-[#25D366] bg-[#25D366]/10 px-4 py-3 font-semibold text-[#25D366] transition hover:bg-[#25D366]/20">
-              📱 Send to WhatsApp
-            </button>
-            <button id="sendTikTokBtn" type="button" class="w-full rounded-2xl border border-[#ff4f81] bg-[#ff4f81]/10 px-4 py-3 font-semibold text-[#ff8eab] transition hover:bg-[#ff4f81]/20">
-              🎵 Send on TikTok
-            </button>
+          <div class="mt-6">
+            <a
+              href="mailto:abdullahimohamed361@gmail.com"
+              class="finale-email-link"
+              aria-label="Send an email to Abdullah"
+            >
+              <span class="finale-email-link__icon">✉︎</span>
+              <span>abdullahimohamed361@gmail.com</span>
+            </a>
           </div>
         </section>
 
@@ -929,10 +972,6 @@
       const herStoryLine = document.getElementById('herStoryLine');
       const janePageTwo = document.getElementById('janePageTwo');
       const turnJanePageBtn = document.getElementById('turnJanePageBtn');
-      const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
-      const sendTikTokBtn = document.getElementById('sendTikTokBtn');
-      const specialMessage = document.getElementById('specialMessage');
-
       function showError() {
         errorText.classList.add('show');
         monthInput.classList.add('border-red-400', 'ring-2', 'ring-red-400/20');
@@ -1031,35 +1070,6 @@
         }
 
         setTimeout(() => turnJanePageBtn.disabled = false, 850);
-      });
-
-      sendWhatsAppBtn.addEventListener('click', () => {
-        const message = specialMessage.value.trim();
-        if (!message) {
-          alert('Please write a sweet message first 💌');
-          return;
-        }
-        const phoneNumber = '905488399873';
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-        window.open(whatsappUrl, '_blank');
-      });
-
-      sendTikTokBtn.addEventListener('click', async () => {
-        const message = specialMessage.value.trim();
-        if (!message) {
-          alert('Please write a sweet message first 💌');
-          return;
-        }
-
-        try {
-          await navigator.clipboard.writeText(message);
-          alert('Your note was copied. TikTok will open so you can paste it into Abdullah\'s message.');
-        } catch (error) {
-          alert('TikTok will open. Copy your note before sending it.');
-        }
-
-        window.open('https://www.tiktok.com/@alphaa863', '_blank');
       });
 
       window.addEventListener('load', () => {
