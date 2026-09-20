@@ -146,6 +146,42 @@
         text-shadow: 0 0 10px rgba(212, 175, 55, 0.26);
       }
 
+      .email-contact {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65rem;
+        max-width: 100%;
+        color: #f7d88d;
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: clamp(1.25rem, 3vw, 1.55rem);
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.12);
+        transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
+      }
+
+      .email-contact::before {
+        content: "✦";
+        flex: 0 0 auto;
+        color: rgba(247, 216, 141, 0.78);
+        font-family: Georgia, serif;
+        font-size: 0.75em;
+      }
+
+      .email-contact:hover,
+      .email-contact:focus-visible,
+      .email-contact:active {
+        color: #fce6a7;
+        text-shadow: 0 0 16px rgba(212, 175, 55, 0.3);
+        transform: translateY(-1px);
+      }
+
+      .email-contact__text {
+        min-width: 0;
+        overflow-wrap: anywhere;
+      }
+
       .quote-block {
         border: 1px solid rgba(212, 175, 55, 0.75);
         box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.15), 0 20px 28px rgba(0, 0, 0, 0.2);
@@ -883,7 +919,7 @@
               <h3 class="mt-2 font-serif text-3xl leading-tight text-[#f5efe6] sm:text-4xl">Ila wadaag dareenkaaga</h3>
             </div>
             <div class="rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-[#f7d88d]">
-              Afka furo, your words
+              dareenkaaga, your words
             </div>
           </div>
 
@@ -896,17 +932,18 @@
               class="min-h-32 w-full resize-y rounded-2xl border border-[#d4af37]/25 bg-[#120c0d]/80 px-4 py-3 text-base leading-7 text-[#f5efe6] placeholder:text-[#f5efe6]/35 focus:border-[#d4af37] focus:outline-none focus:ring-2 focus:ring-[#d4af37]/25"
             ></textarea>
             <div class="rounded-2xl border border-dashed border-[#d4af37]/30 bg-[#120c0d]/50 p-4 text-sm text-[#f5efe6]/70">
-              Ha xishoon, Najah. Si daacad ah ii sheeg waxa aad dareemeysid, whether its positve or negetive.
+              Ha xishoon, Najah. Si daacad ah ii sheeg waxa aad dareemeysid, idk if you're feeling the same way i'm feeling, but I wanna know ❤️
             </div>
           </div>
 
-          <div class="mt-6 grid gap-3 sm:grid-cols-2">
-            <button id="sendWhatsAppBtn" type="button" class="w-full rounded-2xl border border-[#25D366] bg-[#25D366]/10 px-4 py-3 font-semibold text-[#25D366] transition hover:bg-[#25D366]/20">
-              📱 Send to WhatsApp
-            </button>
-            <button id="sendTikTokBtn" type="button" class="w-full rounded-2xl border border-[#ff4f81] bg-[#ff4f81]/10 px-4 py-3 font-semibold text-[#ff8eab] transition hover:bg-[#ff4f81]/20">
-              🎵 Send on TikTok
-            </button>
+          <div class="mt-6 text-center">
+            <a
+              href="mailto:abdullahimohamed361@gmail.com"
+              class="email-contact"
+              aria-label="Email Abdullah at abdullahimohamed361@gmail.com"
+            >
+              <span class="email-contact__text">abdullahimohamed361@gmail.com</span>
+            </a>
           </div>
         </section>
 
@@ -929,9 +966,6 @@
       const herStoryLine = document.getElementById('herStoryLine');
       const janePageTwo = document.getElementById('janePageTwo');
       const turnJanePageBtn = document.getElementById('turnJanePageBtn');
-      const sendWhatsAppBtn = document.getElementById('sendWhatsAppBtn');
-      const sendTikTokBtn = document.getElementById('sendTikTokBtn');
-      const specialMessage = document.getElementById('specialMessage');
 
       function showError() {
         errorText.classList.add('show');
@@ -1031,35 +1065,6 @@
         }
 
         setTimeout(() => turnJanePageBtn.disabled = false, 850);
-      });
-
-      sendWhatsAppBtn.addEventListener('click', () => {
-        const message = specialMessage.value.trim();
-        if (!message) {
-          alert('Please write a sweet message first 💌');
-          return;
-        }
-        const phoneNumber = '905488399873';
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-        window.open(whatsappUrl, '_blank');
-      });
-
-      sendTikTokBtn.addEventListener('click', async () => {
-        const message = specialMessage.value.trim();
-        if (!message) {
-          alert('Please write a sweet message first 💌');
-          return;
-        }
-
-        try {
-          await navigator.clipboard.writeText(message);
-          alert('Your note was copied. TikTok will open so you can paste it into Abdullah\'s message.');
-        } catch (error) {
-          alert('TikTok will open. Copy your note before sending it.');
-        }
-
-        window.open('https://www.tiktok.com/@alphaa863', '_blank');
       });
 
       window.addEventListener('load', () => {
