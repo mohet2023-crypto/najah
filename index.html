@@ -1039,6 +1039,31 @@
       .chose-you__replay:hover,
       .chose-you__replay:focus-visible { color: #f7d88d; }
 
+      .chose-you__play {
+        margin-top: 1.25rem;
+        border: 1px solid rgba(212, 175, 55, 0.6);
+        border-radius: 999px;
+        background: rgba(212, 175, 55, 0.1);
+        padding: 0.75rem 1.35rem;
+        color: #f7d88d;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.4s ease, transform 0.35s ease;
+      }
+
+      .chose-you__play:hover,
+      .chose-you__play:focus-visible {
+        background: rgba(212, 175, 55, 0.2);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
+      }
+
+      .chose-you.is-playing:not(.is-complete) .chose-you__play {
+        opacity: 0;
+        pointer-events: none;
+      }
+
       @keyframes choseYouDrift {
         0%, 100% { transform: translate(0, 0); opacity: 0.22; }
         50% { transform: translate(12px, -18px); opacity: 0.55; }
@@ -1608,7 +1633,7 @@
           <button id="unansweredReplay" class="unanswered-heart__replay" type="button" aria-label="Replay The Unanswered Heart">↻ Replay</button>
         </section>
 
-        <section id="choseYou" class="chose-you mb-12 rounded-[2rem] border border-[#d4af37]/20 p-5 sm:p-10" aria-label="I chose you" data-scene="1" data-boy="alone" data-girl="hidden" data-wall="hidden">
+        <section id="choseYou" class="chose-you is-boy-visible mb-12 rounded-[2rem] border border-[#d4af37]/20 p-5 sm:p-10" aria-label="I chose you" data-scene="1" data-boy="alone" data-girl="hidden" data-wall="hidden">
           <div class="chose-you__particles" aria-hidden="true">
             <span class="chose-you__particle"></span>
             <span class="chose-you__particle"></span>
@@ -1624,6 +1649,7 @@
           <div class="chose-you__header">
             <p class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37]">A private chapter</p>
             <h3 class="mt-3 font-serif text-4xl text-[#f5efe6]">I chose you</h3>
+            <button id="choseYouPlay" type="button" class="chose-you__play">Watch this chapter →</button>
           </div>
           <div class="chose-you__world">
             <div class="chose-you__stage" aria-hidden="true">
@@ -1662,7 +1688,7 @@
           <div class="chose-you__narration" aria-live="polite">
             <p id="choseYouLine" class="chose-you__line"></p>
           </div>
-          <p id="choseYouSilence" class="chose-you__silence">silence</p>
+          <p id="choseYouSilence" class="chose-you__silence">…</p>
           <button id="choseYouReplay" class="chose-you__replay" type="button" aria-label="Replay I chose you">↻ Replay</button>
         </section>
 
@@ -1827,6 +1853,259 @@
 
       unansweredReplay.addEventListener('click', playUnansweredHeart);
 
+      const choseYou = document.getElementById('choseYou');
+      const choseYouLine = document.getElementById('choseYouLine');
+      const choseYouFork = document.getElementById('choseYouFork');
+      const choseYouChoiceLeft = document.getElementById('choseYouChoiceLeft');
+      const choseYouChoiceRight = document.getElementById('choseYouChoiceRight');
+      const choseYouSilence = document.getElementById('choseYouSilence');
+      const choseYouReplay = document.getElementById('choseYouReplay');
+      const choseYouPlay = document.getElementById('choseYouPlay');
+      const choseYouMemories = choseYou ? [...choseYou.querySelectorAll('.chose-you__memory')] : [];
+      let choseYouTimers = [];
+      let choseYouHasPlayed = false;
+      let choseYouObserver = null;
+
+      function clearChoseYouTimers() {
+        choseYouTimers.forEach((timer) => clearTimeout(timer));
+        choseYouTimers = [];
+      }
+
+      function setChoseYouState({ scene, boy, girl, wall, veiled, fading } = {}) {
+        if (!choseYou) return;
+        if (scene) choseYou.dataset.scene = scene;
+        if (boy) choseYou.dataset.boy = boy;
+        if (girl) choseYou.dataset.girl = girl;
+        if (wall) choseYou.dataset.wall = wall;
+        if (veiled === true) choseYou.classList.add('is-veiled');
+        if (veiled === false) choseYou.classList.remove('is-veiled');
+        if (fading === true) choseYou.classList.add('is-fading');
+        if (fading === false) choseYou.classList.remove('is-fading');
+      }
+
+      function showChoseYouLine(text, tone) {
+        if (!choseYouLine) return;
+        choseYouLine.classList.remove('is-visible');
+        choseYouTimers.push(setTimeout(() => {
+          choseYouLine.textContent = text;
+          choseYouLine.classList.remove('chose-you__line--quiet', 'chose-you__line--final');
+          if (tone) choseYouLine.classList.add(tone);
+          choseYouLine.classList.add('is-visible');
+        }, 280));
+      }
+
+      function hideChoseYouLine() {
+        if (choseYouLine) choseYouLine.classList.remove('is-visible');
+      }
+
+      function showChoseYouFork(left, right) {
+        if (!choseYouFork) return;
+        choseYouChoiceLeft.textContent = left;
+        choseYouChoiceRight.textContent = right;
+        choseYouChoiceLeft.classList.remove('is-chosen', 'is-faded');
+        choseYouChoiceRight.classList.remove('is-chosen', 'is-faded');
+        choseYouFork.classList.add('is-visible');
+      }
+
+      function chooseChoseYouFork() {
+        if (!choseYouChoiceLeft) return;
+        choseYouChoiceLeft.classList.add('is-faded');
+        choseYouChoiceRight.classList.add('is-chosen');
+      }
+
+      function hideChoseYouFork() {
+        if (choseYouFork) choseYouFork.classList.remove('is-visible');
+      }
+
+      function playChoseYou() {
+        if (!choseYou) return;
+        clearChoseYouTimers();
+        choseYouHasPlayed = true;
+        choseYou.classList.add('is-playing', 'is-boy-visible');
+        choseYou.classList.remove('is-complete', 'is-girl-visible', 'is-veiled', 'is-fading');
+        choseYou.dataset.scene = '1';
+        choseYou.dataset.boy = 'alone';
+        choseYou.dataset.girl = 'hidden';
+        choseYou.dataset.wall = 'hidden';
+        choseYouLine.textContent = '';
+        choseYouLine.classList.remove('is-visible', 'chose-you__line--quiet', 'chose-you__line--final');
+        choseYouSilence.classList.remove('is-visible');
+        hideChoseYouFork();
+        choseYouMemories.forEach((memory) => memory.classList.remove('is-visible'));
+        if (choseYouPlay) choseYouPlay.textContent = 'Watch this chapter →';
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const motionScale = reducedMotion ? 0.14 : 1;
+        const at = (delay, callback) => {
+          choseYouTimers.push(setTimeout(callback, delay * motionScale));
+        };
+
+        at(200, () => choseYou.classList.add('is-boy-visible'));
+        at(1400, () => choseYouMemories[0] && choseYouMemories[0].classList.add('is-visible'));
+        at(2800, () => {
+          if (choseYouMemories[1]) choseYouMemories[1].classList.add('is-visible');
+          setChoseYouState({ boy: 'toward' });
+        });
+        at(4200, () => choseYouMemories[2] && choseYouMemories[2].classList.add('is-visible'));
+        at(5600, () => choseYouMemories[3] && choseYouMemories[3].classList.add('is-visible'));
+        at(7000, () => {
+          if (choseYouMemories[4]) choseYouMemories[4].classList.add('is-visible');
+          setChoseYouState({ boy: 'near' });
+        });
+        at(8400, () => choseYouMemories[5] && choseYouMemories[5].classList.add('is-visible'));
+        at(9800, () => choseYouMemories[6] && choseYouMemories[6].classList.add('is-visible'));
+        at(11200, () => choseYouMemories[7] && choseYouMemories[7].classList.add('is-visible'));
+        at(12600, () => choseYouMemories[8] && choseYouMemories[8].classList.add('is-visible'));
+        at(14200, () => showChoseYouLine("I didn't just say I cared."));
+        at(17800, () => showChoseYouLine('I tried to show you.'));
+        at(21000, () => showChoseYouLine('Every chance I had.'));
+
+        at(24800, () => {
+          hideChoseYouLine();
+          choseYouMemories.forEach((memory) => memory.classList.remove('is-visible'));
+          setChoseYouState({ scene: '2', boy: 'near' });
+          showChoseYouFork('Walk away', 'Stay');
+        });
+        at(27200, chooseChoseYouFork);
+        at(30000, () => showChoseYouFork('Give up', 'Try again'));
+        at(32200, chooseChoseYouFork);
+        at(35000, () => showChoseYouFork('Protect yourself', 'Choose her'));
+        at(37200, chooseChoseYouFork);
+        at(40000, () => {
+          hideChoseYouFork();
+          showChoseYouLine('I kept choosing you.');
+        });
+        at(43200, () => showChoseYouLine('Not because I had to.'));
+        at(46000, () => showChoseYouLine('I wanted to.'));
+
+        at(49800, () => {
+          hideChoseYouLine();
+          setChoseYouState({ scene: '3', wall: 'present', veiled: true });
+          choseYou.classList.add('is-girl-visible');
+        });
+        at(52000, () => setChoseYouState({ girl: 'look' }));
+        at(54400, () => setChoseYouState({ girl: 'closer' }));
+        at(57200, () => setChoseYouState({ girl: 'reach', boy: 'wall' }));
+        at(60400, () => setChoseYouState({ girl: 'withdraw' }));
+        at(63200, () => setChoseYouState({ girl: 'down' }));
+        at(66200, () => setChoseYouState({ girl: 'step' }));
+        at(69000, () => setChoseYouState({ girl: 'stop' }));
+        at(70800, () => showChoseYouLine('Do you feel what I feel?', 'chose-you__line--quiet'));
+        at(74200, () => showChoseYouLine('Do you love me?', 'chose-you__line--quiet'));
+        at(77600, () => showChoseYouLine('Do you want me too?', 'chose-you__line--quiet'));
+        at(81200, () => showChoseYouLine('How am I supposed to know?'));
+
+        at(85200, () => {
+          setChoseYouState({ scene: '4', boy: 'wall' });
+          showChoseYouLine('I never needed you to love me perfectly.');
+        });
+        at(89400, () => showChoseYouLine("I didn't need grand gestures."));
+        at(93000, () => showChoseYouLine("I didn't need you to become someone you're not."));
+        at(97200, () => showChoseYouLine('I just needed to feel that you were choosing me too.'));
+        at(101800, () => showChoseYouLine('Because I was showing you that I chose you.'));
+
+        at(106000, () => {
+          hideChoseYouLine();
+          setChoseYouState({ scene: '5', boy: 'ask' });
+        });
+        at(107400, () => showChoseYouLine('I wanted to know where we stood.'));
+        at(111400, () => showChoseYouLine('Not because I wanted to pressure you.', 'chose-you__line--quiet'));
+        at(115200, () => showChoseYouLine('But because I cared about you enough to be honest.'));
+        at(119600, () => {
+          hideChoseYouLine();
+          choseYouSilence.classList.add('is-visible');
+        });
+
+        at(127200, () => {
+          choseYouSilence.classList.remove('is-visible');
+          setChoseYouState({ scene: '6' });
+          showChoseYouLine('And when you went silent...');
+        });
+        at(131400, () => showChoseYouLine('I listened.', 'chose-you__line--quiet'));
+        at(134800, () => showChoseYouLine('I respected your silence.'));
+        at(139200, () => showChoseYouLine('Because I never wanted to force an answer out of you.', 'chose-you__line--quiet'));
+        at(144000, () => showChoseYouLine('I never wanted you to say yes because you were afraid of losing me.'));
+        at(149200, () => showChoseYouLine('And I never wanted you to love me because I made you feel like you had to.'));
+
+        at(154800, () => {
+          hideChoseYouLine();
+          setChoseYouState({ scene: '7', boy: 'back' });
+        });
+        at(156200, () => showChoseYouLine('So I stepped back.'));
+        at(160200, () => showChoseYouLine('Not because I stopped caring.', 'chose-you__line--quiet'));
+        at(164400, () => showChoseYouLine('Because I cared enough to let you choose freely.'));
+        at(169000, () => showChoseYouLine("I didn't want to convince you.", 'chose-you__line--quiet'));
+        at(172400, () => showChoseYouLine("I didn't want to chase an answer.", 'chose-you__line--quiet'));
+        at(175800, () => showChoseYouLine("I didn't want to make you love me."));
+        at(179800, () => showChoseYouLine('I wanted you to choose me because you wanted me.'));
+
+        at(184400, () => {
+          setChoseYouState({ scene: '8' });
+          showChoseYouLine('Maybe you were afraid.', 'chose-you__line--quiet');
+        });
+        at(188400, () => showChoseYouLine("Maybe you didn't know what to say.", 'chose-you__line--quiet'));
+        at(192400, () => showChoseYouLine('Maybe saying no to my face felt impossible.', 'chose-you__line--quiet'));
+        at(196800, () => showChoseYouLine('Maybe silence felt easier.', 'chose-you__line--quiet'));
+        at(201200, () => showChoseYouLine("I'll never know unless you tell me.", 'chose-you__line--final'));
+
+        at(206400, () => {
+          hideChoseYouLine();
+          setChoseYouState({ scene: '9', boy: 'further', wall: 'soft', veiled: false });
+        });
+        at(207800, () => showChoseYouLine('So I made it easier for you.'));
+        at(211800, () => showChoseYouLine('I gave you the space to be honest.'));
+        at(215800, () => showChoseYouLine("You didn't have to love me because I loved you.", 'chose-you__line--quiet'));
+        at(219800, () => showChoseYouLine("You didn't have to stay because I stayed.", 'chose-you__line--quiet'));
+        at(223600, () => showChoseYouLine("You didn't have to choose me because I chose you.", 'chose-you__line--quiet'));
+        at(227800, () => showChoseYouLine('You were free.'));
+        at(231400, () => showChoseYouLine('And I was free to accept your silence.'));
+
+        at(236200, () => {
+          setChoseYouState({ scene: '10' });
+          showChoseYouLine("The hardest part wasn't leaving.");
+        });
+        at(240400, () => showChoseYouLine('It was leaving while I still cared.'));
+        at(244800, () => showChoseYouLine("I didn't walk away because you were unworthy of my love."));
+        at(249600, () => showChoseYouLine("I walked away because I didn't want my love to become pressure."));
+        at(254400, () => showChoseYouLine('I wanted you to be free.'));
+        at(257800, () => showChoseYouLine('And I wanted to be honest with myself.'));
+
+        at(262400, () => {
+          hideChoseYouLine();
+          setChoseYouState({ scene: '11', boy: 'frame', girl: 'frame', wall: 'gone', veiled: false });
+        });
+        at(264000, () => showChoseYouLine('I chose you.'));
+        at(267800, () => showChoseYouLine('I showed you.'));
+        at(271200, () => showChoseYouLine('I waited.'));
+        at(274600, () => showChoseYouLine('And when you went silent...'));
+        at(278600, () => showChoseYouLine('I respected it.'));
+        at(282800, () => showChoseYouLine('Because loving someone also means giving them the freedom not to choose you.'));
+        at(289200, () => showChoseYouLine('I just wish I had known...', 'chose-you__line--final'));
+        at(293800, () => showChoseYouLine('...whether you were choosing me too.', 'chose-you__line--final'));
+        at(302000, () => setChoseYouState({ fading: true }));
+        at(306500, () => {
+          choseYou.classList.add('is-complete');
+          choseYou.classList.remove('is-playing');
+          if (choseYouPlay) choseYouPlay.textContent = '↻ Replay';
+        });
+      }
+
+      if (choseYouPlay) choseYouPlay.addEventListener('click', playChoseYou);
+      if (choseYouReplay) choseYouReplay.addEventListener('click', playChoseYou);
+
+      function watchChoseYouChapter() {
+        if (!choseYou || choseYouObserver) return;
+        choseYouObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !choseYouHasPlayed) {
+              playChoseYou();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+        choseYouObserver.observe(choseYou);
+      }
+
       function showError() {
         errorText.classList.add('show');
         monthInput.classList.add('border-red-400', 'ring-2', 'ring-red-400/20');
@@ -1852,6 +2131,7 @@
             app.classList.add('visible-app');
             body.classList.remove('unlocking');
             window.scrollTo({ top: 0, behavior: 'instant' });
+            watchChoseYouChapter();
           }, 2500);
         } else {
           showError();
