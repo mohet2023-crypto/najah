@@ -606,524 +606,6 @@
         .unanswered-heart__traveler.is-returning { animation: none; }
       }
 
-      .chose-you {
-        position: relative;
-        overflow: hidden;
-        min-height: min(46rem, 92vh);
-        background:
-          radial-gradient(ellipse at 22% 58%, rgba(212, 175, 55, 0.09), transparent 34%),
-          radial-gradient(ellipse at 78% 42%, rgba(217, 142, 165, 0.08), transparent 32%),
-          radial-gradient(circle at 50% 100%, rgba(16, 9, 13, 0.2), #080507 72%);
-        box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.35);
-        transition: background 2.8s ease, opacity 2.8s ease, box-shadow 2.8s ease;
-      }
-
-      .chose-you.is-fading {
-        opacity: 0.9;
-        box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.12);
-      }
-
-      .chose-you__particles {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        overflow: hidden;
-      }
-
-      .chose-you__particle {
-        position: absolute;
-        width: 0.22rem;
-        height: 0.22rem;
-        border-radius: 50%;
-        background: rgba(247, 216, 141, 0.55);
-        box-shadow: 0 0 10px rgba(247, 216, 141, 0.45);
-        animation: choseYouDrift 14s ease-in-out infinite;
-        opacity: 0.35;
-      }
-
-      .chose-you__particle:nth-child(1) { top: 18%; left: 12%; animation-duration: 16s; }
-      .chose-you__particle:nth-child(2) { top: 28%; left: 78%; animation-delay: -3s; background: rgba(217, 142, 165, 0.5); }
-      .chose-you__particle:nth-child(3) { top: 62%; left: 22%; animation-delay: -6s; animation-duration: 18s; }
-      .chose-you__particle:nth-child(4) { top: 44%; left: 88%; animation-delay: -2s; }
-      .chose-you__particle:nth-child(5) { top: 76%; left: 40%; animation-delay: -8s; background: rgba(246, 201, 184, 0.45); }
-      .chose-you__particle:nth-child(6) { top: 14%; left: 48%; animation-delay: -5s; }
-      .chose-you__particle:nth-child(7) { top: 82%; left: 70%; animation-delay: -9s; }
-      .chose-you__particle:nth-child(8) { top: 36%; left: 8%; animation-delay: -4s; animation-duration: 20s; }
-      .chose-you__particle:nth-child(9) { top: 58%; left: 58%; animation-delay: -7s; }
-      .chose-you__particle:nth-child(10) { top: 8%; left: 72%; animation-delay: -1s; }
-
-      .chose-you__header {
-        position: relative;
-        z-index: 3;
-        text-align: center;
-      }
-
-      .chose-you__world {
-        position: relative;
-        z-index: 1;
-        min-height: 24rem;
-        margin-top: 0.5rem;
-        transform: translate3d(6%, 0, 0) scale(1.06);
-        transform-origin: 50% 60%;
-        transition: transform 3.2s ease;
-      }
-
-      .chose-you[data-scene="2"] .chose-you__world { transform: translate3d(4%, 0, 0) scale(1.03); }
-      .chose-you[data-scene="3"] .chose-you__world,
-      .chose-you[data-scene="4"] .chose-you__world,
-      .chose-you[data-scene="5"] .chose-you__world,
-      .chose-you[data-scene="6"] .chose-you__world { transform: translate3d(0, 0, 0) scale(1); }
-      .chose-you[data-scene="7"] .chose-you__world,
-      .chose-you[data-scene="8"] .chose-you__world { transform: translate3d(-2%, 2%, 0) scale(0.98); }
-      .chose-you[data-scene="9"] .chose-you__world { transform: translate3d(0, 1%, 0) scale(0.97); }
-      .chose-you[data-scene="10"] .chose-you__world,
-      .chose-you[data-scene="11"] .chose-you__world { transform: translate3d(0, 0, 0) scale(1.02); }
-
-      .chose-you__stage {
-        position: relative;
-        height: 22rem;
-      }
-
-      .chose-you__figure {
-        position: absolute;
-        bottom: 1.8rem;
-        width: 5.2rem;
-        height: 11.5rem;
-        transition: left 3.4s cubic-bezier(.22,.7,.25,1), right 3.4s cubic-bezier(.22,.7,.25,1), opacity 1.8s ease, filter 2.4s ease, transform 2.2s ease;
-      }
-
-      .chose-you__figure--boy {
-        left: 14%;
-        opacity: 0;
-        transform: translateX(-12px);
-        filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 16px rgba(247, 216, 141, 0.28));
-      }
-
-      .chose-you__figure--girl {
-        right: 12%;
-        opacity: 0;
-        transform: translateX(14px);
-        filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 16px rgba(217, 142, 165, 0.3));
-      }
-
-      .chose-you.is-boy-visible .chose-you__figure--boy { opacity: 1; transform: none; }
-      .chose-you.is-girl-visible .chose-you__figure--girl { opacity: 1; transform: none; }
-
-      .chose-you[data-boy="toward"] .chose-you__figure--boy { left: 24%; }
-      .chose-you[data-boy="near"] .chose-you__figure--boy { left: 32%; }
-      .chose-you[data-boy="wall"] .chose-you__figure--boy { left: 36%; }
-      .chose-you[data-boy="ask"] .chose-you__figure--boy { left: 38%; }
-      .chose-you[data-boy="back"] .chose-you__figure--boy { left: 26%; }
-      .chose-you[data-boy="further"] .chose-you__figure--boy { left: 18%; }
-      .chose-you[data-boy="frame"] .chose-you__figure--boy { left: 24%; }
-
-      .chose-you[data-girl="look"] .chose-you__figure--girl { right: 14%; }
-      .chose-you[data-girl="closer"] .chose-you__figure--girl { right: 18%; }
-      .chose-you[data-girl="reach"] .chose-you__figure--girl { right: 20%; }
-      .chose-you[data-girl="withdraw"] .chose-you__figure--girl { right: 17%; }
-      .chose-you[data-girl="down"] .chose-you__figure--girl { right: 16%; }
-      .chose-you[data-girl="step"] .chose-you__figure--girl { right: 21%; }
-      .chose-you[data-girl="stop"] .chose-you__figure--girl { right: 19%; }
-      .chose-you[data-girl="frame"] .chose-you__figure--girl { right: 24%; }
-
-      .chose-you.is-veiled .chose-you__figure--girl {
-        filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 14px rgba(217, 142, 165, 0.22)) blur(1.15px);
-        opacity: 0.78;
-      }
-
-      .chose-you.is-girl-visible.is-veiled .chose-you__figure--girl { opacity: 0.78; }
-      .chose-you[data-wall="soft"].is-girl-visible .chose-you__figure--girl,
-      .chose-you[data-wall="gone"].is-girl-visible .chose-you__figure--girl {
-        filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.35)) drop-shadow(0 0 16px rgba(217, 142, 165, 0.32));
-        opacity: 1;
-      }
-
-      .chose-you__glow {
-        position: absolute;
-        left: 50%;
-        bottom: 0.4rem;
-        width: 4.6rem;
-        height: 4.6rem;
-        border-radius: 50%;
-        transform: translateX(-50%);
-        filter: blur(18px);
-        opacity: 0.7;
-        animation: choseYouGlow 5.6s ease-in-out infinite;
-      }
-
-      .chose-you__figure--boy .chose-you__glow { background: rgba(247, 216, 141, 0.32); }
-      .chose-you__figure--girl .chose-you__glow { background: rgba(217, 142, 165, 0.3); }
-
-      .chose-you__head,
-      .chose-you__hair,
-      .chose-you__neck,
-      .chose-you__torso,
-      .chose-you__arm {
-        position: absolute;
-        background: linear-gradient(180deg, #3a242c, #1a0f12 72%);
-        box-shadow: inset 0 1px 0 rgba(247, 216, 141, 0.12);
-      }
-
-      .chose-you__head {
-        left: 50%;
-        top: 1.15rem;
-        width: 1.85rem;
-        height: 1.95rem;
-        border-radius: 50%;
-        transform: translateX(-50%);
-        transition: transform 1.6s ease;
-        z-index: 2;
-      }
-
-      .chose-you__figure--girl .chose-you__head {
-        width: 1.72rem;
-        height: 1.82rem;
-        top: 1.35rem;
-      }
-
-      .chose-you__hair {
-        display: none;
-        left: 50%;
-        top: 0.85rem;
-        width: 2.35rem;
-        height: 3.1rem;
-        border-radius: 55% 55% 42% 42%;
-        transform: translateX(-50%);
-        background: linear-gradient(180deg, #4a2a34, #211016 80%);
-        z-index: 1;
-      }
-
-      .chose-you__figure--girl .chose-you__hair { display: block; }
-
-      .chose-you__neck {
-        left: 50%;
-        top: 2.9rem;
-        width: 0.42rem;
-        height: 0.7rem;
-        transform: translateX(-50%);
-        z-index: 2;
-      }
-
-      .chose-you__torso {
-        left: 50%;
-        top: 3.45rem;
-        width: 3.35rem;
-        height: 6.6rem;
-        border-radius: 1.6rem 1.6rem 1.1rem 1.1rem;
-        transform: translateX(-50%);
-        z-index: 1;
-      }
-
-      .chose-you__figure--girl .chose-you__torso {
-        top: 3.55rem;
-        width: 3.15rem;
-        height: 6.9rem;
-        border-radius: 1.7rem 1.7rem 1.8rem 1.8rem;
-        background: linear-gradient(180deg, #4a2a36, #1c1014 78%);
-      }
-
-      .chose-you__arm {
-        width: 0.42rem;
-        height: 3.1rem;
-        border-radius: 999px;
-        top: 4.15rem;
-        z-index: 3;
-        transform-origin: top center;
-        transition: transform 1.8s ease;
-      }
-
-      .chose-you__figure--boy .chose-you__arm { right: 0.35rem; transform: rotate(8deg); }
-      .chose-you__figure--girl .chose-you__arm { left: 0.2rem; transform: rotate(-10deg); }
-
-      .chose-you[data-girl="reach"] .chose-you__figure--girl .chose-you__arm {
-        transform: rotate(-46deg) translate(-0.15rem, 0.15rem);
-      }
-
-      .chose-you[data-girl="withdraw"] .chose-you__figure--girl .chose-you__arm,
-      .chose-you[data-girl="down"] .chose-you__figure--girl .chose-you__arm {
-        transform: rotate(14deg);
-      }
-
-      .chose-you[data-girl="down"] .chose-you__figure--girl .chose-you__head {
-        transform: translateX(-50%) translateY(4px) rotate(9deg);
-      }
-
-      .chose-you[data-girl="look"] .chose-you__figure--girl .chose-you__head,
-      .chose-you[data-girl="closer"] .chose-you__figure--girl .chose-you__head,
-      .chose-you[data-girl="reach"] .chose-you__figure--girl .chose-you__head {
-        transform: translateX(-62%);
-      }
-
-      .chose-you[data-boy="wall"] .chose-you__figure--boy .chose-you__head,
-      .chose-you[data-boy="ask"] .chose-you__figure--boy .chose-you__head,
-      .chose-you[data-boy="frame"] .chose-you__figure--boy .chose-you__head {
-        transform: translateX(-38%);
-      }
-
-      .chose-you__wall {
-        position: absolute;
-        left: 50%;
-        top: 1.4rem;
-        z-index: 2;
-        width: min(28%, 8.2rem);
-        height: 16.5rem;
-        transform: translateX(-50%) scaleX(0.4);
-        border-radius: 1.4rem;
-        background: linear-gradient(180deg, rgba(245, 239, 230, 0.04), rgba(247, 216, 141, 0.13), rgba(217, 142, 165, 0.08), rgba(245, 239, 230, 0.03));
-        border: 1px solid rgba(247, 216, 141, 0.22);
-        box-shadow: 0 0 40px rgba(247, 216, 141, 0.12), inset 0 0 24px rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(10px);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 2.4s ease, transform 2.8s ease, filter 2.8s ease, border-color 2.8s ease;
-      }
-
-      .chose-you[data-wall="present"] .chose-you__wall {
-        opacity: 1;
-        transform: translateX(-50%) scaleX(1);
-      }
-
-      .chose-you[data-wall="soft"] .chose-you__wall {
-        opacity: 0.42;
-        transform: translateX(-50%) scaleX(0.86);
-        filter: blur(1.4px);
-        border-color: rgba(247, 216, 141, 0.1);
-      }
-
-      .chose-you[data-wall="gone"] .chose-you__wall {
-        opacity: 0.12;
-        transform: translateX(-50%) scaleX(0.7);
-        filter: blur(2.2px);
-        border-color: transparent;
-      }
-
-      .chose-you__memory {
-        position: absolute;
-        z-index: 2;
-        max-width: 9.5rem;
-        color: rgba(247, 216, 141, 0.72);
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 0.92rem;
-        font-style: italic;
-        letter-spacing: 0.03em;
-        line-height: 1.25;
-        text-shadow: 0 0 12px rgba(212, 175, 55, 0.22);
-        opacity: 0;
-        transform: translateY(8px);
-        transition: opacity 1.4s ease, transform 1.4s ease;
-        pointer-events: none;
-      }
-
-      .chose-you__memory.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .chose-you__memory:nth-child(1) { top: 8%; left: 6%; }
-      .chose-you__memory:nth-child(2) { top: 22%; left: 28%; }
-      .chose-you__memory:nth-child(3) { top: 4%; left: 46%; }
-      .chose-you__memory:nth-child(4) { top: 38%; left: 4%; }
-      .chose-you__memory:nth-child(5) { top: 18%; left: 58%; }
-      .chose-you__memory:nth-child(6) { top: 52%; left: 24%; }
-      .chose-you__memory:nth-child(7) { top: 6%; left: 72%; }
-      .chose-you__memory:nth-child(8) { top: 64%; left: 8%; }
-      .chose-you__memory:nth-child(9) { top: 42%; left: 48%; }
-
-      .chose-you__fork {
-        position: absolute;
-        left: 50%;
-        bottom: 0.35rem;
-        z-index: 4;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.85rem;
-        min-height: 2rem;
-        width: min(92%, 22rem);
-        transform: translateX(-50%);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 1s ease;
-      }
-
-      .chose-you__fork.is-visible { opacity: 1; }
-
-      .chose-you__choice {
-        color: rgba(245, 239, 230, 0.38);
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: clamp(1rem, 2.6vw, 1.25rem);
-        letter-spacing: 0.06em;
-        transition: color 1.1s ease, opacity 1.1s ease, text-shadow 1.1s ease;
-      }
-
-      .chose-you__choice.is-chosen {
-        color: #f7d88d;
-        text-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
-      }
-
-      .chose-you__choice.is-faded { opacity: 0.18; }
-
-      .chose-you__or {
-        color: rgba(247, 216, 141, 0.28);
-        font-size: 0.7rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-      }
-
-      .chose-you__narration {
-        position: relative;
-        z-index: 3;
-        display: grid;
-        place-items: center;
-        min-height: 7.2rem;
-        margin-top: 0.4rem;
-        text-align: center;
-      }
-
-      .chose-you__line {
-        grid-area: 1 / 1;
-        width: 100%;
-        max-width: 38rem;
-        margin: 0;
-        color: rgba(245, 239, 230, 0.9);
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: clamp(1.35rem, 3.3vw, 2rem);
-        line-height: 1.35;
-        opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 1.15s ease, transform 1.15s ease;
-      }
-
-      .chose-you__line.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .chose-you__line--quiet {
-        color: rgba(245, 239, 230, 0.72);
-        font-size: clamp(1.2rem, 3vw, 1.7rem);
-      }
-
-      .chose-you__line--final {
-        color: #f7d88d;
-        text-shadow: 0 0 18px rgba(212, 175, 55, 0.22);
-      }
-
-      .chose-you__silence {
-        position: absolute;
-        inset: auto 0 8.8rem;
-        z-index: 3;
-        text-align: center;
-        color: rgba(245, 239, 230, 0.28);
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 0.85rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        opacity: 0;
-        transition: opacity 2s ease;
-        pointer-events: none;
-      }
-
-      .chose-you__silence.is-visible { opacity: 1; }
-
-      .chose-you__replay {
-        position: absolute;
-        right: 1.25rem;
-        bottom: 1.15rem;
-        z-index: 4;
-        border: 0;
-        background: transparent;
-        color: rgba(247, 216, 141, 0.58);
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 0.9rem;
-        letter-spacing: 0.08em;
-        opacity: 0;
-        pointer-events: none;
-        transition: color 0.3s ease, opacity 0.8s ease;
-      }
-
-      .chose-you.is-complete .chose-you__replay { opacity: 1; pointer-events: auto; }
-      .chose-you__replay:hover,
-      .chose-you__replay:focus-visible { color: #f7d88d; }
-
-      .chose-you__play {
-        margin-top: 1.25rem;
-        border: 1px solid rgba(212, 175, 55, 0.6);
-        border-radius: 999px;
-        background: rgba(212, 175, 55, 0.1);
-        padding: 0.75rem 1.35rem;
-        color: #f7d88d;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.4s ease, transform 0.35s ease;
-      }
-
-      .chose-you__play:hover,
-      .chose-you__play:focus-visible {
-        background: rgba(212, 175, 55, 0.2);
-        box-shadow: 0 0 16px rgba(212, 175, 55, 0.2);
-      }
-
-      .chose-you.is-playing:not(.is-complete) .chose-you__play {
-        opacity: 0;
-        pointer-events: none;
-      }
-
-      @keyframes choseYouDrift {
-        0%, 100% { transform: translate(0, 0); opacity: 0.22; }
-        50% { transform: translate(12px, -18px); opacity: 0.55; }
-      }
-
-      @keyframes choseYouGlow {
-        50% { opacity: 0.95; transform: translateX(-50%) scale(1.12); }
-      }
-
-      @media (max-width: 640px) {
-        .chose-you { min-height: 48rem; }
-        .chose-you__world { min-height: 20rem; transform: none; }
-        .chose-you[data-scene] .chose-you__world { transform: none; }
-        .chose-you__stage { height: 20rem; }
-        .chose-you__figure { width: 4.4rem; height: 10.2rem; bottom: 2.4rem; }
-        .chose-you__figure--boy { left: 4%; }
-        .chose-you__figure--girl { right: 4%; }
-        .chose-you[data-boy="toward"] .chose-you__figure--boy { left: 10%; }
-        .chose-you[data-boy="near"] .chose-you__figure--boy { left: 16%; }
-        .chose-you[data-boy="wall"] .chose-you__figure--boy,
-        .chose-you[data-boy="ask"] .chose-you__figure--boy { left: 18%; }
-        .chose-you[data-boy="back"] .chose-you__figure--boy { left: 10%; }
-        .chose-you[data-boy="further"] .chose-you__figure--boy { left: 4%; }
-        .chose-you[data-boy="frame"] .chose-you__figure--boy { left: 8%; }
-        .chose-you[data-girl="look"] .chose-you__figure--girl { right: 6%; }
-        .chose-you[data-girl="closer"] .chose-you__figure--girl,
-        .chose-you[data-girl="reach"] .chose-you__figure--girl { right: 10%; }
-        .chose-you[data-girl="withdraw"] .chose-you__figure--girl,
-        .chose-you[data-girl="down"] .chose-you__figure--girl { right: 7%; }
-        .chose-you[data-girl="step"] .chose-you__figure--girl,
-        .chose-you[data-girl="stop"] .chose-you__figure--girl { right: 11%; }
-        .chose-you[data-girl="frame"] .chose-you__figure--girl { right: 8%; }
-        .chose-you__wall { width: 22%; height: 14.8rem; top: 2.2rem; }
-        .chose-you__memory { max-width: 7.2rem; font-size: 0.78rem; }
-        .chose-you__memory:nth-child(5),
-        .chose-you__memory:nth-child(7),
-        .chose-you__memory:nth-child(9) { left: auto; right: 4%; }
-        .chose-you__narration { min-height: 8.2rem; }
-        .chose-you__silence { inset: auto 0 10.2rem; }
-        .chose-you__torso { width: 2.85rem; height: 5.8rem; }
-        .chose-you__replay { right: 0.9rem; bottom: 0.85rem; }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .chose-you__particle,
-        .chose-you__glow { animation: none; }
-        .chose-you__world,
-        .chose-you__figure,
-        .chose-you__wall,
-        .chose-you__arm,
-        .chose-you__head { transition-duration: 0.01ms; }
-      }
-
       .moon {
         position: absolute;
         top: 2rem;
@@ -1182,6 +664,284 @@
 
       .finale-message { opacity: 0; transition: opacity 1.2s ease; }
       .finale.ready .finale-message { opacity: 1; }
+
+      .unsaid {
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08), transparent 42%),
+          linear-gradient(180deg, #120b0e 0%, #160c10 100%);
+      }
+
+      .unsaid::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.14;
+        background-image: radial-gradient(rgba(247, 216, 141, 0.4) 0.6px, transparent 0.6px);
+        background-size: 8px 8px;
+      }
+
+      .unsaid__particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .unsaid__particle {
+        position: absolute;
+        width: 0.18rem;
+        height: 0.18rem;
+        border-radius: 50%;
+        background: rgba(247, 216, 141, 0.5);
+        box-shadow: 0 0 8px rgba(247, 216, 141, 0.35);
+        animation: unsaidDrift 16s ease-in-out infinite;
+        opacity: 0.28;
+      }
+
+      .unsaid__particle:nth-child(1) { top: 16%; left: 12%; }
+      .unsaid__particle:nth-child(2) { top: 28%; left: 78%; animation-delay: -4s; }
+      .unsaid__particle:nth-child(3) { top: 62%; left: 18%; animation-delay: -8s; }
+      .unsaid__particle:nth-child(4) { top: 74%; left: 86%; animation-delay: -2s; }
+      .unsaid__particle:nth-child(5) { top: 44%; left: 48%; animation-delay: -6s; }
+      .unsaid__particle:nth-child(6) { top: 8%; left: 62%; animation-delay: -10s; }
+
+      .unsaid__header,
+      .unsaid__stage,
+      .unsaid__paper-wrap {
+        position: relative;
+        z-index: 1;
+      }
+
+      .unsaid__header {
+        text-align: center;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 1.1s ease, transform 1.1s ease;
+      }
+
+      .unsaid.is-arrived .unsaid__header {
+        opacity: 1;
+        transform: none;
+      }
+
+      .unsaid__stage {
+        display: grid;
+        justify-items: center;
+        min-height: 16rem;
+        margin-top: 1.75rem;
+      }
+
+      .unsaid__envelope {
+        position: relative;
+        width: min(100%, 22rem);
+        height: 13.5rem;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        perspective: 1100px;
+        transform: translateY(18px);
+        opacity: 0;
+        transition: opacity 1.1s ease 0.2s, transform 1.1s ease 0.2s;
+      }
+
+      .unsaid.is-arrived .unsaid__envelope {
+        opacity: 1;
+        transform: none;
+      }
+
+      .unsaid__envelope:focus-visible {
+        outline: 2px solid rgba(212, 175, 55, 0.7);
+        outline-offset: 6px;
+        border-radius: 1rem;
+      }
+
+      .unsaid__pocket,
+      .unsaid__flap,
+      .unsaid__back {
+        position: absolute;
+        left: 0;
+        width: 100%;
+      }
+
+      .unsaid__back {
+        top: 3.4rem;
+        height: 9.4rem;
+        border: 1px solid rgba(212, 175, 55, 0.42);
+        border-radius: 0 0 1.15rem 1.15rem;
+        background: linear-gradient(160deg, #4a2832, #231016);
+        box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .unsaid__peek {
+        position: absolute;
+        left: 10%;
+        right: 10%;
+        top: 4.1rem;
+        height: 4.6rem;
+        border: 1px solid rgba(203, 181, 143, 0.45);
+        border-radius: 0.35rem 0.35rem 0 0;
+        background: linear-gradient(180deg, #f3e6cf, #e4d0ae);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+        transform: translateY(18px);
+        opacity: 0.65;
+        transition: transform 1.15s cubic-bezier(.2,.7,.25,1), opacity 0.8s ease;
+        pointer-events: none;
+      }
+
+      .unsaid.is-opening .unsaid__peek,
+      .unsaid.is-open .unsaid__peek {
+        transform: translateY(-2.6rem);
+        opacity: 1;
+      }
+
+      .unsaid__pocket {
+        top: 6.3rem;
+        height: 6.5rem;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        border-radius: 0 0 1.15rem 1.15rem;
+        background: linear-gradient(180deg, #3a1f27 0%, #1d1014 100%);
+        box-shadow: inset 0 12px 18px rgba(0, 0, 0, 0.18);
+        z-index: 2;
+      }
+
+      .unsaid__flap {
+        top: 3.4rem;
+        height: 6.2rem;
+        border: 1px solid rgba(212, 175, 55, 0.5);
+        background: linear-gradient(180deg, #5a2d38, #321820);
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        transform-origin: top center;
+        transition: transform 1s cubic-bezier(.2,.7,.25,1);
+        z-index: 4;
+      }
+
+      .unsaid.is-opening .unsaid__flap,
+      .unsaid.is-open .unsaid__flap {
+        transform: rotateX(180deg);
+      }
+
+      .unsaid__seal {
+        position: absolute;
+        left: 50%;
+        top: 7.15rem;
+        z-index: 5;
+        width: 2.15rem;
+        height: 2.15rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #f0d48a, #b8862e 62%, #7a5416);
+        color: #3d1d25;
+        font-size: 0.85rem;
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.35);
+        transform: translateX(-50%);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .unsaid.is-opening .unsaid__seal,
+      .unsaid.is-open .unsaid__seal {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+      }
+
+      .unsaid__hint {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.35rem;
+        z-index: 6;
+        color: rgba(247, 216, 141, 0.78);
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        transition: opacity 0.5s ease;
+      }
+
+      .unsaid.is-opening .unsaid__hint,
+      .unsaid.is-open .unsaid__hint { opacity: 0; }
+
+      .unsaid__paper-wrap {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(24px);
+        transition: max-height 1.4s ease, opacity 1s ease 0.35s, transform 1.2s ease 0.25s;
+      }
+
+      .unsaid.is-open .unsaid__paper-wrap {
+        max-height: 220rem;
+        opacity: 1;
+        transform: none;
+      }
+
+      .unsaid__paper {
+        width: min(100%, 40rem);
+        margin: 0.75rem auto 0;
+        padding: 1.6rem 1.25rem 2rem;
+        border: 1px solid rgba(212, 175, 55, 0.38);
+        border-radius: 0.4rem;
+        background:
+          linear-gradient(180deg, rgba(255, 248, 232, 0.08), transparent 18%),
+          repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(89, 46, 35, 0.05) 28px),
+          linear-gradient(145deg, #f6ead3, #e4cfb0);
+        color: #2b1719;
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.32), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+      }
+
+      .unsaid__paper p {
+        margin: 0 0 1.05rem;
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-size: clamp(1.12rem, 3.4vw, 1.38rem);
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+      }
+
+      .unsaid__paper p:last-of-type { margin-bottom: 0; }
+
+      .unsaid__heart {
+        display: block;
+        margin: 1.8rem 0 0;
+        text-align: center;
+        font-size: 1.7rem;
+        line-height: 1;
+        opacity: 0;
+        transform: translateY(8px) scale(0.92);
+        transition: opacity 1.4s ease, transform 1.4s ease;
+      }
+
+      .unsaid__heart.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      @keyframes unsaidDrift {
+        0%, 100% { transform: translate(0, 0); }
+        50% { transform: translate(10px, -14px); }
+      }
+
+      @media (min-width: 641px) {
+        .unsaid__paper { padding: 2.4rem 2.6rem 2.6rem; }
+      }
+
+      @media (max-width: 640px) {
+        .unsaid__envelope { height: 12.6rem; }
+        .unsaid__paper { padding: 1.35rem 1rem 1.7rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .unsaid__particle { animation: none; }
+        .unsaid__header,
+        .unsaid__envelope,
+        .unsaid__flap,
+        .unsaid__peek,
+        .unsaid__paper-wrap,
+        .unsaid__heart { transition-duration: 0.01ms; }
+      }
 
       .jane-eyre-section {
         position: relative;
@@ -1640,65 +1400,6 @@
           <button id="unansweredReplay" class="unanswered-heart__replay" type="button" aria-label="Replay The Unanswered Heart">↻ Replay</button>
         </section>
 
-        <section id="choseYou" class="chose-you is-boy-visible mb-12 rounded-[2rem] border border-[#d4af37]/20 p-5 sm:p-10" aria-label="I chose you" data-scene="1" data-boy="alone" data-girl="hidden" data-wall="hidden">
-          <div class="chose-you__particles" aria-hidden="true">
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-            <span class="chose-you__particle"></span>
-          </div>
-          <div class="chose-you__header">
-            <p class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37]">A private chapter</p>
-            <h3 class="mt-3 font-serif text-4xl text-[#f5efe6]">I chose you</h3>
-            <button id="choseYouPlay" type="button" class="chose-you__play">Watch this chapter →</button>
-          </div>
-          <div class="chose-you__world">
-            <div class="chose-you__stage" aria-hidden="true">
-              <span class="chose-you__memory">the little things I kept</span>
-              <span class="chose-you__memory">how I listened</span>
-              <span class="chose-you__memory">the care I gave</span>
-              <span class="chose-you__memory">time I made for you</span>
-              <span class="chose-you__memory">a moment I created</span>
-              <span class="chose-you__memory">the affection I showed</span>
-              <span class="chose-you__memory">trying to understand</span>
-              <span class="chose-you__memory">I stayed</span>
-              <span class="chose-you__memory">I chose you</span>
-              <div class="chose-you__figure chose-you__figure--boy" id="choseYouBoy">
-                <span class="chose-you__glow"></span>
-                <span class="chose-you__head"></span>
-                <span class="chose-you__neck"></span>
-                <span class="chose-you__torso"></span>
-                <span class="chose-you__arm"></span>
-              </div>
-              <div class="chose-you__wall" id="choseYouWall"></div>
-              <div class="chose-you__figure chose-you__figure--girl" id="choseYouGirl">
-                <span class="chose-you__glow"></span>
-                <span class="chose-you__hair"></span>
-                <span class="chose-you__head"></span>
-                <span class="chose-you__neck"></span>
-                <span class="chose-you__torso"></span>
-                <span class="chose-you__arm"></span>
-              </div>
-              <div class="chose-you__fork" id="choseYouFork">
-                <span class="chose-you__choice" id="choseYouChoiceLeft"></span>
-                <span class="chose-you__or">or</span>
-                <span class="chose-you__choice" id="choseYouChoiceRight"></span>
-              </div>
-            </div>
-          </div>
-          <div class="chose-you__narration" aria-live="polite">
-            <p id="choseYouLine" class="chose-you__line"></p>
-          </div>
-          <p id="choseYouSilence" class="chose-you__silence">…</p>
-          <button id="choseYouReplay" class="chose-you__replay" type="button" aria-label="Replay I chose you">↻ Replay</button>
-        </section>
-
         <section class="jane-eyre-section mb-12 rounded-[2rem] border border-[#d4af37]/25 p-5 sm:p-10">
           <div class="relative z-10 mb-6 text-center">
             <p class="text-[10px] uppercase tracking-[0.3em] text-[#f7d88d]">A page from her favorite book</p>
@@ -1741,6 +1442,57 @@
           <div class="finale-message mt-6">
             <h3 class="font-serif text-5xl text-[#f5efe6]">Happy Birthday, Najah ❤️</h3>
             <p class="mx-auto mt-5 max-w-xl font-serif text-2xl leading-9 text-[#f7d88d]">Waxaan ku jecladay si aan xad lahayn. Waxaad ii noqotay qofka kaliya aan ugu baahiyaha badanahay adduunka. Waxaan ku daneeyaa si aan weli qofna loo daneen. Waxaad ii tahay jawharada nolosheyda iyo iftiinka qalbigayga 🫶🏻👸</p>
+          </div>
+        </section>
+
+        <section id="unsaidLetter" class="unsaid mb-12 rounded-[2rem] border border-[#d4af37]/20 p-5 sm:p-10" aria-label="The things I never said">
+          <div class="unsaid__particles" aria-hidden="true">
+            <span class="unsaid__particle"></span>
+            <span class="unsaid__particle"></span>
+            <span class="unsaid__particle"></span>
+            <span class="unsaid__particle"></span>
+            <span class="unsaid__particle"></span>
+            <span class="unsaid__particle"></span>
+          </div>
+          <div class="unsaid__header">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-[#d4af37]">The things I never said</p>
+            <h3 class="mt-3 font-serif text-3xl leading-tight text-[#f5efe6] sm:text-4xl">There’s something I never knew how to say…</h3>
+          </div>
+          <div class="unsaid__stage">
+            <button
+              id="unsaidEnvelope"
+              class="unsaid__envelope"
+              type="button"
+              aria-expanded="false"
+              aria-controls="unsaidPaper"
+              aria-label="Open the letter"
+            >
+              <span class="unsaid__back" aria-hidden="true"></span>
+              <span class="unsaid__peek" aria-hidden="true"></span>
+              <span class="unsaid__pocket" aria-hidden="true"></span>
+              <span class="unsaid__flap" aria-hidden="true"></span>
+              <span class="unsaid__seal" aria-hidden="true">✦</span>
+              <span class="unsaid__hint">Open the letter</span>
+            </button>
+          </div>
+          <div class="unsaid__paper-wrap">
+            <article id="unsaidPaper" class="unsaid__paper">
+              <p>Waad ogthy I love u and I care about u.</p>
+              <p>But its painful not communicating and having good conversation with the person u care about .</p>
+              <p>Khaastn markad kala fogthin qofka oo ad isku meel joogin .</p>
+              <p>Qofku marku kula joogo wad dareemi kartaa malinka wxu dareemya markad wajigisa iyo shucuurtisa argatid but for uh wad iga fogthy the only way an ku ogan karro waa inan atleast wda hadalno si joogta ah .</p>
+              <p>But the problem is u don't love call sad ii shegty and whenever I try inan ku so dhawda si aan u ogaado xaaladada ama aan suaal muhiim ah ku weydiiyo wad dhuumnysa luuqqagi bad gelli .</p>
+              <p>And this thing confuses me alot .</p>
+              <p>Ugu yaraan igu qeyli hadn wax khld ah sameeyy I sheeg wxn sameyy si aan u saxo , sida aan anigu kugu shegayo waxa aan dhibsanyo iyo wxa aad khldy iyo sida aan ku jecelhy iyo dareeenka aan kuu hayo .</p>
+              <p>Because hdii adn adigu ii sheegin jinni ma ihi dee hhpih see ku ogaanyaa .</p>
+              <p>Xaqiiqdi hadda ma garn karro sand iyo bar kadib if u ever had a feeling for me sometimes I wonder inan kugu khasbyo xiriir iyo qof adn Rabin .</p>
+              <p>Waayo amusnantas iyo qofka inu cadeyn wayo mawqifkisa wxy noqn karta diidmo iyo isgaro oo amaan isii waayo uma malynyo mudada intas le'eg kadib hadii ayynu official ku noqn weyny oo aan suashn ku weydiiyy aad ka jawwabi wydy .</p>
+              <p>Mxa kle oo sameeya qalpih .</p>
+              <p>Aan ahyn in aan ku khasbin oo an ku dhibin oo an goa'ankga amusnanta ah ixtiraamo anigo dhibsnya .</p>
+              <p>But I had to respect ur silence and take it as ur answer and not force uh.</p>
+              <p>Sanad kdib in aad garuun iyo mindi igu bacsatey ahyd noloshydi 😂❤️.</p>
+              <span id="unsaidHeart" class="unsaid__heart" aria-hidden="true">❤️</span>
+            </article>
           </div>
         </section>
 
@@ -1860,259 +1612,6 @@
 
       unansweredReplay.addEventListener('click', playUnansweredHeart);
 
-      const choseYou = document.getElementById('choseYou');
-      const choseYouLine = document.getElementById('choseYouLine');
-      const choseYouFork = document.getElementById('choseYouFork');
-      const choseYouChoiceLeft = document.getElementById('choseYouChoiceLeft');
-      const choseYouChoiceRight = document.getElementById('choseYouChoiceRight');
-      const choseYouSilence = document.getElementById('choseYouSilence');
-      const choseYouReplay = document.getElementById('choseYouReplay');
-      const choseYouPlay = document.getElementById('choseYouPlay');
-      const choseYouMemories = choseYou ? [...choseYou.querySelectorAll('.chose-you__memory')] : [];
-      let choseYouTimers = [];
-      let choseYouHasPlayed = false;
-      let choseYouObserver = null;
-
-      function clearChoseYouTimers() {
-        choseYouTimers.forEach((timer) => clearTimeout(timer));
-        choseYouTimers = [];
-      }
-
-      function setChoseYouState({ scene, boy, girl, wall, veiled, fading } = {}) {
-        if (!choseYou) return;
-        if (scene) choseYou.dataset.scene = scene;
-        if (boy) choseYou.dataset.boy = boy;
-        if (girl) choseYou.dataset.girl = girl;
-        if (wall) choseYou.dataset.wall = wall;
-        if (veiled === true) choseYou.classList.add('is-veiled');
-        if (veiled === false) choseYou.classList.remove('is-veiled');
-        if (fading === true) choseYou.classList.add('is-fading');
-        if (fading === false) choseYou.classList.remove('is-fading');
-      }
-
-      function showChoseYouLine(text, tone) {
-        if (!choseYouLine) return;
-        choseYouLine.classList.remove('is-visible');
-        choseYouTimers.push(setTimeout(() => {
-          choseYouLine.textContent = text;
-          choseYouLine.classList.remove('chose-you__line--quiet', 'chose-you__line--final');
-          if (tone) choseYouLine.classList.add(tone);
-          choseYouLine.classList.add('is-visible');
-        }, 280));
-      }
-
-      function hideChoseYouLine() {
-        if (choseYouLine) choseYouLine.classList.remove('is-visible');
-      }
-
-      function showChoseYouFork(left, right) {
-        if (!choseYouFork) return;
-        choseYouChoiceLeft.textContent = left;
-        choseYouChoiceRight.textContent = right;
-        choseYouChoiceLeft.classList.remove('is-chosen', 'is-faded');
-        choseYouChoiceRight.classList.remove('is-chosen', 'is-faded');
-        choseYouFork.classList.add('is-visible');
-      }
-
-      function chooseChoseYouFork() {
-        if (!choseYouChoiceLeft) return;
-        choseYouChoiceLeft.classList.add('is-faded');
-        choseYouChoiceRight.classList.add('is-chosen');
-      }
-
-      function hideChoseYouFork() {
-        if (choseYouFork) choseYouFork.classList.remove('is-visible');
-      }
-
-      function playChoseYou() {
-        if (!choseYou) return;
-        clearChoseYouTimers();
-        choseYouHasPlayed = true;
-        choseYou.classList.add('is-playing', 'is-boy-visible');
-        choseYou.classList.remove('is-complete', 'is-girl-visible', 'is-veiled', 'is-fading');
-        choseYou.dataset.scene = '1';
-        choseYou.dataset.boy = 'alone';
-        choseYou.dataset.girl = 'hidden';
-        choseYou.dataset.wall = 'hidden';
-        choseYouLine.textContent = '';
-        choseYouLine.classList.remove('is-visible', 'chose-you__line--quiet', 'chose-you__line--final');
-        choseYouSilence.classList.remove('is-visible');
-        hideChoseYouFork();
-        choseYouMemories.forEach((memory) => memory.classList.remove('is-visible'));
-        if (choseYouPlay) choseYouPlay.textContent = 'Watch this chapter →';
-
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const motionScale = reducedMotion ? 0.14 : 1;
-        const at = (delay, callback) => {
-          choseYouTimers.push(setTimeout(callback, delay * motionScale));
-        };
-
-        at(200, () => choseYou.classList.add('is-boy-visible'));
-        at(1400, () => choseYouMemories[0] && choseYouMemories[0].classList.add('is-visible'));
-        at(2800, () => {
-          if (choseYouMemories[1]) choseYouMemories[1].classList.add('is-visible');
-          setChoseYouState({ boy: 'toward' });
-        });
-        at(4200, () => choseYouMemories[2] && choseYouMemories[2].classList.add('is-visible'));
-        at(5600, () => choseYouMemories[3] && choseYouMemories[3].classList.add('is-visible'));
-        at(7000, () => {
-          if (choseYouMemories[4]) choseYouMemories[4].classList.add('is-visible');
-          setChoseYouState({ boy: 'near' });
-        });
-        at(8400, () => choseYouMemories[5] && choseYouMemories[5].classList.add('is-visible'));
-        at(9800, () => choseYouMemories[6] && choseYouMemories[6].classList.add('is-visible'));
-        at(11200, () => choseYouMemories[7] && choseYouMemories[7].classList.add('is-visible'));
-        at(12600, () => choseYouMemories[8] && choseYouMemories[8].classList.add('is-visible'));
-        at(14200, () => showChoseYouLine("I didn't just say I cared."));
-        at(17800, () => showChoseYouLine('I tried to show you.'));
-        at(21000, () => showChoseYouLine('Every chance I had.'));
-
-        at(24800, () => {
-          hideChoseYouLine();
-          choseYouMemories.forEach((memory) => memory.classList.remove('is-visible'));
-          setChoseYouState({ scene: '2', boy: 'near' });
-          showChoseYouFork('Walk away', 'Stay');
-        });
-        at(27200, chooseChoseYouFork);
-        at(30000, () => showChoseYouFork('Give up', 'Try again'));
-        at(32200, chooseChoseYouFork);
-        at(35000, () => showChoseYouFork('Protect yourself', 'Choose her'));
-        at(37200, chooseChoseYouFork);
-        at(40000, () => {
-          hideChoseYouFork();
-          showChoseYouLine('I kept choosing you.');
-        });
-        at(43200, () => showChoseYouLine('Not because I had to.'));
-        at(46000, () => showChoseYouLine('I wanted to.'));
-
-        at(49800, () => {
-          hideChoseYouLine();
-          setChoseYouState({ scene: '3', wall: 'present', veiled: true });
-          choseYou.classList.add('is-girl-visible');
-        });
-        at(52000, () => setChoseYouState({ girl: 'look' }));
-        at(54400, () => setChoseYouState({ girl: 'closer' }));
-        at(57200, () => setChoseYouState({ girl: 'reach', boy: 'wall' }));
-        at(60400, () => setChoseYouState({ girl: 'withdraw' }));
-        at(63200, () => setChoseYouState({ girl: 'down' }));
-        at(66200, () => setChoseYouState({ girl: 'step' }));
-        at(69000, () => setChoseYouState({ girl: 'stop' }));
-        at(70800, () => showChoseYouLine('Do you feel what I feel?', 'chose-you__line--quiet'));
-        at(74200, () => showChoseYouLine('Do you love me?', 'chose-you__line--quiet'));
-        at(77600, () => showChoseYouLine('Do you want me too?', 'chose-you__line--quiet'));
-        at(81200, () => showChoseYouLine('How am I supposed to know?'));
-
-        at(85200, () => {
-          setChoseYouState({ scene: '4', boy: 'wall' });
-          showChoseYouLine('I never needed you to love me perfectly.');
-        });
-        at(89400, () => showChoseYouLine("I didn't need grand gestures."));
-        at(93000, () => showChoseYouLine("I didn't need you to become someone you're not."));
-        at(97200, () => showChoseYouLine('I just needed to feel that you were choosing me too.'));
-        at(101800, () => showChoseYouLine('Because I was showing you that I chose you.'));
-
-        at(106000, () => {
-          hideChoseYouLine();
-          setChoseYouState({ scene: '5', boy: 'ask' });
-        });
-        at(107400, () => showChoseYouLine('I wanted to know where we stood.'));
-        at(111400, () => showChoseYouLine('Not because I wanted to pressure you.', 'chose-you__line--quiet'));
-        at(115200, () => showChoseYouLine('But because I cared about you enough to be honest.'));
-        at(119600, () => {
-          hideChoseYouLine();
-          choseYouSilence.classList.add('is-visible');
-        });
-
-        at(127200, () => {
-          choseYouSilence.classList.remove('is-visible');
-          setChoseYouState({ scene: '6' });
-          showChoseYouLine('And when you went silent...');
-        });
-        at(131400, () => showChoseYouLine('I listened.', 'chose-you__line--quiet'));
-        at(134800, () => showChoseYouLine('I respected your silence.'));
-        at(139200, () => showChoseYouLine('Because I never wanted to force an answer out of you.', 'chose-you__line--quiet'));
-        at(144000, () => showChoseYouLine('I never wanted you to say yes because you were afraid of losing me.'));
-        at(149200, () => showChoseYouLine('And I never wanted you to love me because I made you feel like you had to.'));
-
-        at(154800, () => {
-          hideChoseYouLine();
-          setChoseYouState({ scene: '7', boy: 'back' });
-        });
-        at(156200, () => showChoseYouLine('So I stepped back.'));
-        at(160200, () => showChoseYouLine('Not because I stopped caring.', 'chose-you__line--quiet'));
-        at(164400, () => showChoseYouLine('Because I cared enough to let you choose freely.'));
-        at(169000, () => showChoseYouLine("I didn't want to convince you.", 'chose-you__line--quiet'));
-        at(172400, () => showChoseYouLine("I didn't want to chase an answer.", 'chose-you__line--quiet'));
-        at(175800, () => showChoseYouLine("I didn't want to make you love me."));
-        at(179800, () => showChoseYouLine('I wanted you to choose me because you wanted me.'));
-
-        at(184400, () => {
-          setChoseYouState({ scene: '8' });
-          showChoseYouLine('Maybe you were afraid.', 'chose-you__line--quiet');
-        });
-        at(188400, () => showChoseYouLine("Maybe you didn't know what to say.", 'chose-you__line--quiet'));
-        at(192400, () => showChoseYouLine('Maybe saying no to my face felt impossible.', 'chose-you__line--quiet'));
-        at(196800, () => showChoseYouLine('Maybe silence felt easier.', 'chose-you__line--quiet'));
-        at(201200, () => showChoseYouLine("I'll never know unless you tell me.", 'chose-you__line--final'));
-
-        at(206400, () => {
-          hideChoseYouLine();
-          setChoseYouState({ scene: '9', boy: 'further', wall: 'soft', veiled: false });
-        });
-        at(207800, () => showChoseYouLine('So I made it easier for you.'));
-        at(211800, () => showChoseYouLine('I gave you the space to be honest.'));
-        at(215800, () => showChoseYouLine("You didn't have to love me because I loved you.", 'chose-you__line--quiet'));
-        at(219800, () => showChoseYouLine("You didn't have to stay because I stayed.", 'chose-you__line--quiet'));
-        at(223600, () => showChoseYouLine("You didn't have to choose me because I chose you.", 'chose-you__line--quiet'));
-        at(227800, () => showChoseYouLine('You were free.'));
-        at(231400, () => showChoseYouLine('And I was free to accept your silence.'));
-
-        at(236200, () => {
-          setChoseYouState({ scene: '10' });
-          showChoseYouLine("The hardest part wasn't leaving.");
-        });
-        at(240400, () => showChoseYouLine('It was leaving while I still cared.'));
-        at(244800, () => showChoseYouLine("I didn't walk away because you were unworthy of my love."));
-        at(249600, () => showChoseYouLine("I walked away because I didn't want my love to become pressure."));
-        at(254400, () => showChoseYouLine('I wanted you to be free.'));
-        at(257800, () => showChoseYouLine('And I wanted to be honest with myself.'));
-
-        at(262400, () => {
-          hideChoseYouLine();
-          setChoseYouState({ scene: '11', boy: 'frame', girl: 'frame', wall: 'gone', veiled: false });
-        });
-        at(264000, () => showChoseYouLine('I chose you.'));
-        at(267800, () => showChoseYouLine('I showed you.'));
-        at(271200, () => showChoseYouLine('I waited.'));
-        at(274600, () => showChoseYouLine('And when you went silent...'));
-        at(278600, () => showChoseYouLine('I respected it.'));
-        at(282800, () => showChoseYouLine('Because loving someone also means giving them the freedom not to choose you.'));
-        at(289200, () => showChoseYouLine('I just wish I had known...', 'chose-you__line--final'));
-        at(293800, () => showChoseYouLine('...whether you were choosing me too.', 'chose-you__line--final'));
-        at(302000, () => setChoseYouState({ fading: true }));
-        at(306500, () => {
-          choseYou.classList.add('is-complete');
-          choseYou.classList.remove('is-playing');
-          if (choseYouPlay) choseYouPlay.textContent = '↻ Replay';
-        });
-      }
-
-      if (choseYouPlay) choseYouPlay.addEventListener('click', playChoseYou);
-      if (choseYouReplay) choseYouReplay.addEventListener('click', playChoseYou);
-
-      function watchChoseYouChapter() {
-        if (!choseYou || choseYouObserver) return;
-        choseYouObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && !choseYouHasPlayed) {
-              playChoseYou();
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-        choseYouObserver.observe(choseYou);
-      }
-
       function showError() {
         errorText.classList.add('show');
         monthInput.classList.add('border-red-400', 'ring-2', 'ring-red-400/20');
@@ -2138,7 +1637,6 @@
             app.classList.add('visible-app');
             body.classList.remove('unlocking');
             window.scrollTo({ top: 0, behavior: 'instant' });
-            watchChoseYouChapter();
           }, 2500);
         } else {
           showError();
@@ -2167,6 +1665,47 @@
           openLetter();
         }
       });
+
+      const unsaidLetter = document.getElementById('unsaidLetter');
+      const unsaidEnvelope = document.getElementById('unsaidEnvelope');
+      const unsaidHeart = document.getElementById('unsaidHeart');
+      let unsaidOpened = false;
+
+      function openUnsaidLetter() {
+        if (!unsaidLetter || unsaidOpened) return;
+        unsaidOpened = true;
+        unsaidLetter.classList.add('is-opening');
+        if (unsaidEnvelope) {
+          unsaidEnvelope.setAttribute('aria-expanded', 'true');
+          unsaidEnvelope.setAttribute('aria-label', 'Letter opened');
+        }
+
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const motionScale = reducedMotion ? 0.08 : 1;
+        setTimeout(() => unsaidLetter.classList.add('is-open'), 900 * motionScale);
+        setTimeout(() => {
+          if (unsaidHeart) unsaidHeart.classList.add('is-visible');
+        }, (reducedMotion ? 400 : 3600));
+      }
+
+      if (unsaidEnvelope) {
+        unsaidEnvelope.addEventListener('click', openUnsaidLetter);
+        unsaidEnvelope.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openUnsaidLetter();
+          }
+        });
+      }
+
+      if (unsaidLetter) {
+        const unsaidObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) unsaidLetter.classList.add('is-arrived');
+          });
+        }, { threshold: 0.22 });
+        unsaidObserver.observe(unsaidLetter);
+      }
 
       document.querySelectorAll('.star-button').forEach((star) => {
         star.addEventListener('click', () => star.classList.toggle('active'));
